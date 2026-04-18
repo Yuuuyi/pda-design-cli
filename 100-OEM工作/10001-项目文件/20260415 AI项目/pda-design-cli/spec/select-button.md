@@ -85,7 +85,7 @@
 ```html
 <div class="ms-btn ms-btn--selected">
   请输入
-  <img class="icon" src="./asset/icons/svg_00462162.svg" />
+  <img class="icon" src="icon_check_outline.svg" />
 </div>
 ```
 
@@ -105,9 +105,30 @@
 ```html
 <div class="ms-btn ms-btn--selected-disabled">
   请输入
-  <img class="icon" src="./asset/icons/svg_00462162.svg" />
+  <img class="icon" src="icon_check_outline.svg" />
 </div>
 ```
+
+## 图标调用规则
+
+> **重要：多选按钮内图标需调用 icon 包**
+
+选中态的右上角状态图标必须从 `pda-design-cli/spec/icons/` 目录调用。
+
+| 用途 | 推荐图标 | 文件名 | 说明 |
+|------|---------|--------|------|
+| 选中态勾选 | `check` | `icon_check_outline.svg` | 右上角状态标记 |
+
+~~`<img class="icon" src="./asset/icons/svg_00462162.svg" />`~~ → 请改用 icon 包引用
+
+**引用方式：**
+```typescript
+import { IconCheckOutline } from 'pda-design-cli/spec/icons';
+
+<SelectButton selected icon={<IconCheckOutline />} />
+```
+
+完整图标列表见 `spec/icons/index.json`。
 
 ## 布局方式
 

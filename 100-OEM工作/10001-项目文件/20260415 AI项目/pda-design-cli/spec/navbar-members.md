@@ -85,7 +85,25 @@
 | 成员容器背景 | #FFFFFF | color-functional-black-no-1 |
 | 成员容器边框 | #E0E4F0 | 自定义边框色 (接近 Grey NO.3) |
 
-## 6. 交互与状态
+## 6. 图标调用规则
+
+> **重要：导航栏内图标需调用 icon 包**
+
+导航栏内所有图标必须从 `pda-design-cli/spec/icons/` 目录调用。
+
+| 位置 | 推荐图标 | 填充态 | 描边态 | 说明 |
+|------|---------|--------|--------|------|
+| 左侧返回 | `arrow_left` | `icon_arrow_left.svg` | `icon_arrow_left_outline.svg` | 返回上一页 |
+| 右侧更多 | `more` | `icon_more.svg` | `icon_more_outline.svg` | 更多选项/成员管理 |
+
+**引用方式：**
+```typescript
+import { IconArrowLeft, IconMore } from 'pda-design-cli/spec/icons';
+```
+
+完整图标列表见 `spec/icons/index.json`。
+
+## 7. 交互与状态
 
 - **点击热区：** 整个成员统计胶囊区域应为可点击区域，悬停时可调整背景色（如使用 Grey NO.2 `#EEEEEE`）。
 - **溢出处理：** 当人数超过 3 人时，显示 2 个头像叠加，数字显示剩余总数（如 "+8"）。

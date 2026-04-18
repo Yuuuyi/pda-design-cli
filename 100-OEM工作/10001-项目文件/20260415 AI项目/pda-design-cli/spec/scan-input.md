@@ -25,6 +25,23 @@
 
 - **圆角半径：** `6px`
 
-## 5. 图标 (Icons)
+## 5. 图标调用规则
 
-- **尺寸：** `24px × 24px`
+> **重要：扫描框内图标需调用 icon 包**
+
+扫描框内图标必须从 `pda-design-cli/spec/icons/` 目录调用。
+
+| 用途 | 推荐图标 | 文件名 | 说明 |
+|------|---------|--------|------|
+| 扫描图标 | `scanning` | `icon_scanning_outline.svg` | 扫描入口图标 |
+
+- 图标尺寸：`24px × 24px`
+
+**引用方式：**
+```typescript
+import { IconScanningOutline } from 'pda-design-cli/spec/icons';
+
+<ScanInput icon={<IconScanningOutline />} />
+```
+
+完整图标列表见 `spec/icons/index.json`。

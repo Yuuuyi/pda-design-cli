@@ -74,7 +74,24 @@
 | 占位符文本 | #BBBBBB | 自定义浅灰（介于 Grey NO.4-5 之间） |
 | 搜索按钮文本 | #6445D1 | primary-no-6 |
 
-## 6. 交互与状态
+## 6. 图标调用规则
+
+> **重要：导航栏内图标需调用 icon 包**
+
+导航栏内所有图标必须从 `pda-design-cli/spec/icons/` 目录调用。
+
+| 位置 | 推荐图标 | 填充态 | 描边态 | 说明 |
+|------|---------|--------|--------|------|
+| 左侧返回 | `arrow_left` | `icon_arrow_left.svg` | `icon_arrow_left_outline.svg` | 返回上一页 |
+
+**引用方式：**
+```typescript
+import { IconArrowLeft } from 'pda-design-cli/spec/icons';
+```
+
+完整图标列表见 `spec/icons/index.json`。
+
+## 7. 交互与状态
 
 - **输入框焦点态：** 获取焦点时可添加 `1px solid #6445D1` 边框或 `0 0 0 2px rgba(100, 69, 209, 0.2)` 的 Focus Ring。
 - **搜索按钮：** Hover 时可添加轻微背景色（如 Grey NO.2 `#EEEEEE`）。

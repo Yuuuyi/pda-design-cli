@@ -1,85 +1,82 @@
 /**
- * Fetch design specs from Git registry
- * Supports both public and private repositories
+ * Fetch design specs - 本地优先，无需网络
+ * npx 运行时包已在本地，直接读 spec/ 目录
  */
 
-const fetch = require('node-fetch');
+const fs = require('fs');
+const path = require('path');
 
-// Default registry: public GitHub repo
-const DEFAULT_REGISTRY_BASE = 'https://raw.githubusercontent.com/Yuuuyi/pda-design-registry/main';
+// 本地 spec 目录（lib/ 的同级 spec/）
+const LOCAL_SPEC_DIR = path.resolve(__dirname, '../spec');
 
 /**
- * Get the registry base URL
+ * 读取本地 spec 文件
+ * @param {string} relativePath - 相对于 spec/ 的路径，如 'modal-container.md'
  */
-function getRegistryUrl(customUrl) {
-  return customUrl || process.env.PDA_REGISTRY_URL || DEFAULT_REGISTRY_BASE;
-}
-
-/**
- * Get GitHub token for private repos
- */
-function getAuthToken() {
-  return process.env.PDA_GITHUB_TOKEN || process.env.GITHUB_TOKEN || null;
-}
-
-/**
- * Build fetch headers with optional auth
- */
-function buildHeaders() {
-  const headers = {
-    'Accept': 'text/plain',
-  };
-  const token = getAuthToken();
-  if (token) {
-    headers['Authorization'] = `token ${token}`;
+function readLocalFile(relativePath) {
+  const fullPath = path.join(LOCAL_SPEC_DIR, relativePath);
+  if (fs.existsSync(fullPath)) {
+    return fs.readFileSync(fullPath, 'utf-8');
   }
-  return headers;
+  return null;
 }
 
 /**
- * Fetch a markdown file from the registry
- * @param {string} path - file path relative to registry root (e.g. 'components/modal-container.md')
- * @param {string} customUrl - optional custom registry URL
+ * 读取本地 registry.json
  */
-async function fetchFile(path, customUrl) {
-  const baseUrl = getRegistryUrl(customUrl);
-
-  // For GitHub API (private repos), use API endpoint
-  const token = getAuthToken();
-  let url;
-  if (token && baseUrl.includes('github.com')) {
-    // Convert raw URL to API URL for private repo access
-    const repoMatch = baseUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
-    if (repoMatch) {
-      const [, owner, repo] = repoMatch;
-      const branch = baseUrl.split('/').pop() || 'main';
-      url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
-    } else {
-      url = `${baseUrl}/${path}`;
-    }
-  } else {
-    url = `${baseUrl}/${path}`;
+function readLocalRegistry() {
+  const content = readLocalFile('registry.json');
+  if (content) {
+    return JSON.parse(content);
   }
-
-  const response = await fetch(url, { headers: buildHeaders() });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${path}: ${response.status} ${response.statusText}`);
-  }
-
-  return await response.text();
+  return null;
 }
 
 /**
- * Fetch the registry index
+ * 获取 registry（本地优先）
  */
 async function fetchRegistry(customUrl) {
-  const text = await fetchFile('registry.json', customUrl);
-  return JSON.parse(text);
+  const local = readLocalRegistry();
+  if (local) {
+    return local;
+  }
+  throw new Error('无法读取本地 registry.json，请确认 pda-design-cli 安装完整');
+}
+
+/**
+ * 获取规范文件（本地优先）
+ */
+async function fetchFile(filePath, customUrl) {
+  const local = readLocalFile(filePath);
+  if (local) {
+    return local;
+  }
+  throw new Error(`文件不存在: ${filePath}，请确认 pda-design-cli 安装完整`);
+}
+
+/**
+ * 列出本地 spec 目录下的文件
+ */
+function listLocalFiles(subDir) {
+  const dir = path.join(LOCAL_SPEC_DIR, subDir);
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+  return fs.readdirSync(dir);
+}
+
+/**
+ * 获取本地 spec 目录路径
+ */
+function getSpecDir() {
+  return LOCAL_SPEC_DIR;
 }
 
 module.exports = {
   fetchFile,
   fetchRegistry,
-  getRegistryUrl,
+  readLocalFile,
+  readLocalRegistry,
+  listLocalFiles,
+  getSpecDir,
 };

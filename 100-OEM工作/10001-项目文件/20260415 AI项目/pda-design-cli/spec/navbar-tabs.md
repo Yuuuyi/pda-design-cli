@@ -66,7 +66,25 @@
 | 主色强调 | #6445D1 | primary-no-6 |
 | 背景色 | #F3F4F6 | Grey NO.2 或自定义 |
 
-## 6. 交互与状态
+## 6. 图标调用规则
+
+> **重要：导航栏内图标需调用 icon 包**
+
+导航栏内所有图标必须从 `pda-design-cli/spec/icons/` 目录调用。
+
+| 位置 | 推荐图标 | 填充态 | 描边态 | 说明 |
+|------|---------|--------|--------|------|
+| 左侧返回 | `arrow_left` | `icon_arrow_left.svg` | `icon_arrow_left_outline.svg` | 返回上一页 |
+| 右侧操作 | `more` | `icon_more.svg` | `icon_more_outline.svg` | 更多选项 |
+
+**引用方式：**
+```typescript
+import { IconArrowLeft, IconMore } from 'pda-design-cli/spec/icons';
+```
+
+完整图标列表见 `spec/icons/index.json`。
+
+## 7. 交互与状态
 
 - **标签数量：** 最小 2 个，最大 5 个。超过 5 个时需考虑滚动或换行策略。
 - **点击反馈：** 建议在移动端为标签项添加点击态（Ripple 或背景色变化），背景色可使用 Grey NO.2 (`#EEEEEE`)。

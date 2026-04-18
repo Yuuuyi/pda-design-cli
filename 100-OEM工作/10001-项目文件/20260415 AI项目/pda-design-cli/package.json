@@ -1,32 +1,30 @@
 {
   "name": "pda-design-cli",
-  "version": "1.1.1",
-  "description": "PDA Design System CLI - Fetch and apply design specifications. Includes design tokens, components, and icons.",
+  "version": "1.2.6",
+  "description": "PDA Design System CLI - 拉取设计规范，供 AI 读取和开发参考。包含组件规范、设计 Token 和图标。",
   "bin": {
     "pda-design": "./bin/cli.js"
   },
   "files": [
     "bin",
     "lib",
-    "templates",
     "spec"
   ],
   "scripts": {
-    "dev": "node bin/cli.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node bin/cli.js"
   },
   "keywords": [
     "design-system",
     "cli",
     "pda",
-    "components"
+    "components",
+    "ai-design"
   ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "commander": "^11.1.0",
     "chalk": "^4.1.2",
-    "ora": "^5.4.1",
-    "node-fetch": "^2.7.0"
+    "ora": "^5.4.1"
   }
 }

@@ -5,67 +5,67 @@
   "components": {
     "modal-container": {
       "name": "弹窗容器 (Modal Container)",
-      "file": "components/modal-container.md",
+      "file": "modal-container.md",
       "category": "feedback",
       "tags": ["modal", "dialog", "popup", "弹窗"]
     },
     "primary-button": {
       "name": "主按钮 (Primary Button)",
-      "file": "components/primary-button.md",
+      "file": "primary-button.md",
       "category": "button",
       "tags": ["button", "primary", "主按钮"]
     },
     "ghost-button": {
       "name": "幽灵按钮 (Ghost Button)",
-      "file": "components/ghost-button.md",
+      "file": "ghost-button.md",
       "category": "button",
       "tags": ["button", "ghost", "幽灵按钮"]
     },
     "floating-bottom-button": {
       "name": "底部悬浮按钮 (Floating Bottom Button)",
-      "file": "components/floating-bottom-button.md",
+      "file": "floating-bottom-button.md",
       "category": "button",
       "tags": ["button", "floating", "bottom", "悬浮按钮"]
     },
     "navbar-default": {
       "name": "导航栏默认 (Navbar Default)",
-      "file": "components/navbar-default.md",
+      "file": "navbar-default.md",
       "category": "navigation",
       "tags": ["navbar", "navigation", "导航栏"]
     },
     "navbar-tabs": {
       "name": "导航栏带标签栏 (Navbar Tabs)",
-      "file": "components/navbar-tabs.md",
+      "file": "navbar-tabs.md",
       "category": "navigation",
       "tags": ["navbar", "tabs", "标签栏", "导航栏"]
     },
     "navbar-members": {
       "name": "导航栏带成员统计 (Navbar Members)",
-      "file": "components/navbar-members.md",
+      "file": "navbar-members.md",
       "category": "navigation",
       "tags": ["navbar", "members", "成员统计", "导航栏"]
     },
     "navbar-search": {
       "name": "导航栏带搜索框 (Navbar Search)",
-      "file": "components/navbar-search.md",
+      "file": "navbar-search.md",
       "category": "navigation",
       "tags": ["navbar", "search", "搜索框", "导航栏"]
     },
     "input-field": {
       "name": "输入框 (InputField)",
-      "file": "components/input-field.md",
+      "file": "input-field.md",
       "category": "data-entry",
       "tags": ["input", "输入框", "表单"]
     },
     "scan-input": {
       "name": "扫描框 (Scan Input)",
-      "file": "components/scan-input.md",
+      "file": "scan-input.md",
       "category": "data-entry",
       "tags": ["scan", "input", "扫描", "扫码"]
     },
     "select-button": {
       "name": "多选按钮 (SelectButton)",
-      "file": "components/select-button.md",
+      "file": "select-button.md",
       "category": "data-entry",
       "tags": ["select", "button", "多选", "筛选"]
     },
@@ -75,6 +75,20 @@
       "category": "navigation",
       "tags": ["tabbar", "navigation", "底部导航", "标签栏"],
       "note": "Tab Bar 内图标需调用 icon 包"
+    },
+    "tabs": {
+      "name": "标签页 (Tabs)",
+      "file": "tabs.md",
+      "category": "navigation",
+      "tags": ["tabs", "segment", "标签页", "分段控制", "pill-tabs"],
+      "note": "独立标签页组件，区别于 navbar-tabs"
+    },
+    "more-action-sheet": {
+      "name": "更多操作面板 (MoreActionSheet)",
+      "file": "more-action-sheet.md",
+      "category": "feedback",
+      "tags": ["action-sheet", "bottom-sheet", "more", "更多", "操作面板"],
+      "note": "底部弹出的动作面板，图标统一调用 icon 包 business 分类"
     }
   },
   "tokens": {
@@ -92,8 +106,8 @@
   "icons": {
     "index": "icons/index.json",
     "directory": "icons/",
-    "total": 335,
-    "format": "SVG 48x48 fill=currentColor",
+    "total": 499,
+    "format": "SVG 40×40 或 48×48，fill=#333333 或 fill=currentColor",
     "categories": {
       "action": { "count": 59, "description": "操作类：添加、关闭、删除、编辑、搜索等" },
       "other": { "count": 46, "description": "其他：通用图标" },
@@ -103,12 +117,13 @@
       "arrow": { "count": 25, "description": "箭头类：方向指示箭头" },
       "finance": { "count": 20, "description": "金融类：支付、钱包、银行等" },
       "communication": { "count": 19, "description": "通讯类：电话、消息、蓝牙、WiFi等" },
-      "people": { "count": 18, "description": "人物类：用户、团队、人脸识别等" },
+      "people": { "count": 17, "description": "人物类：用户、团队、人脸识别等" },
       "navigation": { "count": 17, "description": "导航类：首页、菜单、地图等" },
       "weather": { "count": 15, "description": "天气类：雨、雪、风、云等" },
       "media": { "count": 14, "description": "媒体类：图片、预览、二维码等" },
       "security": { "count": 14, "description": "安全类：锁、盾牌、指纹等" },
-      "transport": { "count": 6, "description": "交通类：卡车、飞机等" }
+      "transport": { "count": 6, "description": "交通类：卡车、飞机等" },
+      "business": { "count": 165, "description": "业务类：物流各环节业务图标（取货、派货、理货、干线、进港、出港、分拨等）" }
     }
   }
 }

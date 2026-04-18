@@ -1,86 +1,109 @@
 /**
- * `init` command - Initialize design tokens in the project
+ * `init` command - 初始化所有设计规范到项目目录
+ * 输出原始 md/svg 文件，供 AI 直接读取
  */
 
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
 const ora = require('ora');
-const { fetchFile, fetchRegistry } = require('../fetch');
-const { parseTokenFile } = require('../parser');
+const { fetchFile, fetchRegistry, listLocalFiles } = require('../fetch');
 
 async function initCommand(options) {
-  const spinner = ora('Initializing design tokens...').start();
+  const spinner = ora('初始化设计规范...').start();
 
   try {
-    // Fetch registry
     const registry = await fetchRegistry(options.registry);
-
-    if (!registry.tokens) {
-      spinner.fail('No tokens found in registry.');
-      return;
-    }
-
     const outputDir = path.resolve(options.output);
     fs.mkdirSync(outputDir, { recursive: true });
 
-    // Fetch and generate each token file
-    for (const [name, filePath] of Object.entries(registry.tokens)) {
-      spinner.text = `Fetching ${name} tokens...`;
+    let count = 0;
 
-      const markdown = await fetchFile(filePath, options.registry);
-      const parsed = parseTokenFile(markdown);
-
-      // Generate TypeScript token file
-      const outputFile = path.join(outputDir, `${name}.ts`);
-      const code = generateTokenModule(parsed, name);
-      fs.writeFileSync(outputFile, code);
-
-      // Also save raw markdown
-      fs.writeFileSync(path.join(outputDir, `${name}.md`), markdown);
-    }
-
-    // Generate index file
-    const indexContent = Object.keys(registry.tokens)
-      .map(name => `export * from './${name}';`)
-      .join('\n');
-    fs.writeFileSync(path.join(outputDir, 'index.ts'), indexContent);
-
-    spinner.succeed(chalk.green(`✅ Design tokens initialized in ${outputDir}`));
-    console.log(chalk.dim(`   Tokens: ${Object.keys(registry.tokens).join(', ')}`));
-
-  } catch (error) {
-    spinner.fail(chalk.red(`Failed: ${error.message}`));
-    process.exit(1);
-  }
-}
-
-function generateTokenModule(parsed, name) {
-  const entries = [];
-
-  for (const table of parsed.tables) {
-    for (const row of table.rows) {
-      const grade = row['分级'] || row['NO.'] || row['字重分类'] || '';
-      const value = (row['色值'] || row['值'] || row['字号 (px)'] || row['行高 (px)'] || '').replace(/`/g, '');
-      const note = row['说明'] || row['备注'] || row['应用示例/说明'] || '';
-
-      if (grade || value) {
-        const key = grade.replace(/\s/g, '').replace(/[^a-zA-Z0-9\u4e00-\u9fa5]/g, '_');
-        if (value.startsWith('#') || /^\d/.test(value)) {
-          entries.push(`  /** ${note} */`);
-          entries.push(`  ${key || 'value'}: '${value}',`);
+    // 导出组件
+    if (registry.components) {
+      for (const [name, info] of Object.entries(registry.components)) {
+        try {
+          const content = await fetchFile(info.file);
+          fs.writeFileSync(path.join(outputDir, path.basename(info.file)), content);
+          count++;
+        } catch (e) {
+          // 跳过缺失的文件
         }
       }
     }
+
+    // 导出 Token
+    if (registry.tokens) {
+      const tokenDir = path.join(outputDir, 'tokens');
+      fs.mkdirSync(tokenDir, { recursive: true });
+
+      for (const [name, filePath] of Object.entries(registry.tokens)) {
+        try {
+          const content = await fetchFile(filePath);
+          fs.writeFileSync(path.join(tokenDir, path.basename(filePath)), content);
+          count++;
+        } catch (e) {
+          // 跳过缺失的文件
+        }
+      }
+    }
+
+    // 导出 Guidelines
+    if (registry.guidelines) {
+      const guideDir = path.join(outputDir, 'guidelines');
+      fs.mkdirSync(guideDir, { recursive: true });
+
+      for (const [name, filePath] of Object.entries(registry.guidelines)) {
+        try {
+          const content = await fetchFile(filePath);
+          fs.writeFileSync(path.join(guideDir, path.basename(filePath)), content);
+          count++;
+        } catch (e) {
+          // 跳过缺失的文件
+        }
+      }
+    }
+
+    // 导出 registry.json
+    const registryContent = await fetchFile('registry.json');
+    fs.writeFileSync(path.join(outputDir, 'registry.json'), registryContent);
+    count++;
+
+    // 复制图标目录（如果有）
+    const iconFiles = listLocalFiles('icons');
+    if (iconFiles.length > 0) {
+      const iconDir = path.join(outputDir, 'icons');
+      fs.mkdirSync(iconDir, { recursive: true });
+
+      // 只复制 index.json，不复制 335 个 SVG（太大了）
+      const indexFile = listLocalFiles('icons').find(f => f === 'index.json');
+      if (indexFile) {
+        const content = await fetchFile(`icons/${indexFile}`);
+        fs.writeFileSync(path.join(iconDir, indexFile), content);
+        count++;
+      }
+
+      // 创建图标目录说明
+      fs.writeFileSync(path.join(iconDir, 'README.md'),
+        `# Icons\n\n共 ${iconFiles.length - 1} 个 SVG 图标。\n\n用法: npx pda-design-cli add icon:图标名\n`
+      );
+    }
+
+    spinner.succeed(chalk.green(`✅ 设计规范已导出到 ${outputDir}（${count} 个文件）`));
+    console.log(chalk.dim(`   目录结构:`));
+    console.log(chalk.dim(`   ${outputDir}/`));
+    console.log(chalk.dim(`   ├── registry.json`));
+    console.log(chalk.dim(`   ├── *.md (组件规范)`));
+    console.log(chalk.dim(`   ├── tokens/ (设计 Token)`));
+    console.log(chalk.dim(`   ├── guidelines/ (设计指南)`));
+    console.log(chalk.dim(`   └── icons/ (图标索引)`));
+    console.log('');
+    console.log(chalk.dim(`   告诉 AI: "参考 ${outputDir}/ 下的设计规范"`));
+
+  } catch (error) {
+    spinner.fail(chalk.red(`失败: ${error.message}`));
+    process.exit(1);
   }
-
-  const exportName = name.replace(/-/g, '');
-
-  if (entries.length > 0) {
-    return `// PDA Design System - ${name} tokens\n// Auto-generated\n\nexport const ${exportName} = {\n${entries.join('\n')}\n} as const;\n`;
-  }
-
-  return `// PDA Design System - ${name} tokens\n// Auto-generated\n\nexport const ${exportName} = {} as const;\n`;
 }
 
 module.exports = { initCommand };

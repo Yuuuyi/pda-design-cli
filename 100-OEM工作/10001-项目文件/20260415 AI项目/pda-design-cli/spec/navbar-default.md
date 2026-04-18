@@ -64,7 +64,33 @@
 | 标题文本 | #333333 | color-functional-black-no-6 |
 | 背景色 | #F3F4F6 | color-functional-grey-no-2 |
 
-## 6. 交互与状态
+## 6. 图标调用规则
+
+> **重要：导航栏内图标需调用 icon 包**
+
+导航栏内所有图标必须从 `pda-design-cli/spec/icons/` 目录调用，支持填充态和描边态两种风格。
+
+| 位置 | 推荐图标 | 填充态 | 描边态 | 说明 |
+|------|---------|--------|--------|------|
+| 左侧返回 | `arrow_left` | `icon_arrow_left.svg` | `icon_arrow_left_outline.svg` | 返回上一页 |
+| 右侧操作 | `more` | `icon_more.svg` | `icon_more_outline.svg` | 更多选项 |
+| 右侧操作 | `search` | `icon_search.svg` | `icon_search_outline.svg` | 搜索入口 |
+| 右侧操作 | `close` | `icon_close.svg` | `icon_close_outline.svg` | 关闭页面 |
+
+**引用方式：**
+```typescript
+import { IconArrowLeft, IconSearch } from 'pda-design-cli/spec/icons';
+
+// 导航栏使用示例
+<Navbar
+  leftIcon={<IconArrowLeft />}
+  rightIcon={<IconSearch />}
+/>
+```
+
+完整图标列表见 `spec/icons/index.json`。
+
+## 7. 交互与状态
 
 - **点击热区：** 左右两侧的图标区域应具备至少 40px × 40px 的点击热区。
 - **状态反馈：** 点击左侧返回箭头应有即时反馈（如透明度变化或背景色变化，建议使用 Grey NO.2 `#EEEEEE`）。

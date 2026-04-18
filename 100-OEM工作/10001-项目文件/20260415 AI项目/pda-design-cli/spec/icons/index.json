@@ -1,5 +1,5 @@
 {
-  "total": 335,
+  "total": 499,
   "categories": {
     "arrow": [
       {
@@ -745,10 +745,6 @@
     ],
     "people": [
       {
-        "file": "icons/.rename_log_20260417_095755.txt",
-        "name": ".rename_log_20260417_095755.txt"
-      },
-      {
         "file": "icons/icon_arithmetic_outline.svg",
         "name": "arithmetic_outline"
       },
@@ -1367,6 +1363,668 @@
       {
         "file": "icons/icon_update_outline.svg",
         "name": "update_outline"
+      }
+    ],
+    "business": [
+      {
+        "file": "icons/icon_report-switch.svg",
+        "name": "report-switch"
+      },
+      {
+        "file": "icons/icon_module-rating.svg",
+        "name": "module-rating"
+      },
+      {
+        "file": "icons/icon_container-set.svg",
+        "name": "container-set"
+      },
+      {
+        "file": "icons/icon_inventory-collect.svg",
+        "name": "inventory-collect"
+      },
+      {
+        "file": "icons/icon_storage-service.svg",
+        "name": "storage-service"
+      },
+      {
+        "file": "icons/icon_cross-storage.svg",
+        "name": "cross-storage"
+      },
+      {
+        "file": "icons/icon_sort-add-service.svg",
+        "name": "sort-add-service"
+      },
+      {
+        "file": "icons/icon_damage-loss.svg",
+        "name": "damage-loss"
+      },
+      {
+        "file": "icons/icon_archive-search.svg",
+        "name": "archive-search"
+      },
+      {
+        "file": "icons/icon_swap-load.svg",
+        "name": "swap-load"
+      },
+      {
+        "file": "icons/icon_asset-handover.svg",
+        "name": "asset-handover"
+      },
+      {
+        "file": "icons/icon_waybill-pack.svg",
+        "name": "waybill-pack"
+      },
+      {
+        "file": "icons/icon_contraband.svg",
+        "name": "contraband"
+      },
+      {
+        "file": "icons/icon_receipt-photo.svg",
+        "name": "receipt-photo"
+      },
+      {
+        "file": "icons/icon_handle-scan.svg",
+        "name": "handle-scan"
+      },
+      {
+        "file": "icons/icon_ext-vehicle-inspect.svg",
+        "name": "ext-vehicle-inspect"
+      },
+      {
+        "file": "icons/icon_box-collect.svg",
+        "name": "box-collect"
+      },
+      {
+        "file": "icons/icon_current-asset.svg",
+        "name": "current-asset"
+      },
+      {
+        "file": "icons/icon_rfid-manage.svg",
+        "name": "rfid-manage"
+      },
+      {
+        "file": "icons/icon_vehicle-bind.svg",
+        "name": "vehicle-bind"
+      },
+      {
+        "file": "icons/icon_asset-manage.svg",
+        "name": "asset-manage"
+      },
+      {
+        "file": "icons/icon_image-upload.svg",
+        "name": "image-upload"
+      },
+      {
+        "file": "icons/icon_vehicle-check.svg",
+        "name": "vehicle-check"
+      },
+      {
+        "file": "icons/icon_autoparts-manage.svg",
+        "name": "autoparts-manage"
+      },
+      {
+        "file": "icons/icon_address-correct.svg",
+        "name": "address-correct"
+      },
+      {
+        "file": "icons/icon_hang-load.svg",
+        "name": "hang-load"
+      },
+      {
+        "file": "icons/icon_fuel-manage.svg",
+        "name": "fuel-manage"
+      },
+      {
+        "file": "icons/icon_repair-apply.svg",
+        "name": "repair-apply"
+      },
+      {
+        "file": "icons/icon_pallet-handover.svg",
+        "name": "pallet-handover"
+      },
+      {
+        "file": "icons/icon_receipt-handle.svg",
+        "name": "receipt-handle"
+      },
+      {
+        "file": "icons/icon_bluetooth-print.svg",
+        "name": "bluetooth-print"
+      },
+      {
+        "file": "icons/icon_track-query.svg",
+        "name": "track-query"
+      },
+      {
+        "file": "icons/icon_photo-pickup.svg",
+        "name": "photo-pickup"
+      },
+      {
+        "file": "icons/icon_byd-booking.svg",
+        "name": "byd-booking"
+      },
+      {
+        "file": "icons/icon_quick-pick.svg",
+        "name": "quick-pick"
+      },
+      {
+        "file": "icons/icon_asset-inventory.svg",
+        "name": "asset-inventory"
+      },
+      {
+        "file": "icons/icon_expense-print.svg",
+        "name": "expense-print"
+      },
+      {
+        "file": "icons/icon_clarity-check.svg",
+        "name": "clarity-check"
+      },
+      {
+        "file": "icons/icon_zhiyu-sign.svg",
+        "name": "zhiyu-sign"
+      },
+      {
+        "file": "icons/icon_full-vehicle-add.svg",
+        "name": "full-vehicle-add"
+      },
+      {
+        "file": "icons/icon_quick-search.svg",
+        "name": "quick-search"
+      },
+      {
+        "file": "icons/icon_cargo-photo.svg",
+        "name": "cargo-photo"
+      },
+      {
+        "file": "icons/icon_advance-payment.svg",
+        "name": "advance-payment"
+      },
+      {
+        "file": "icons/icon_vehicle-wait.svg",
+        "name": "vehicle-wait"
+      },
+      {
+        "file": "icons/icon_clear-scan.svg",
+        "name": "clear-scan"
+      },
+      {
+        "file": "icons/icon_collect-payment.svg",
+        "name": "collect-payment"
+      },
+      {
+        "file": "icons/icon_stairs-delivery.svg",
+        "name": "stairs-delivery"
+      },
+      {
+        "file": "icons/icon_dispatch-exception.svg",
+        "name": "dispatch-exception"
+      },
+      {
+        "file": "icons/icon_unload-record.svg",
+        "name": "unload-record"
+      },
+      {
+        "file": "icons/icon_retail-return.svg",
+        "name": "retail-return"
+      },
+      {
+        "file": "icons/icon_reject-return.svg",
+        "name": "reject-return"
+      },
+      {
+        "file": "icons/icon_sign-report.svg",
+        "name": "sign-report"
+      },
+      {
+        "file": "icons/icon_one-click-dispatch.svg",
+        "name": "one-click-dispatch"
+      },
+      {
+        "file": "icons/icon_internal-sign.svg",
+        "name": "internal-sign"
+      },
+      {
+        "file": "icons/icon_wood-remove.svg",
+        "name": "wood-remove"
+      },
+      {
+        "file": "icons/icon_upload-receipt-check.svg",
+        "name": "upload-receipt-check"
+      },
+      {
+        "file": "icons/icon_batch-dispatch.svg",
+        "name": "batch-dispatch"
+      },
+      {
+        "file": "icons/icon_receipt-pack.svg",
+        "name": "receipt-pack"
+      },
+      {
+        "file": "icons/icon_one-click-sign.svg",
+        "name": "one-click-sign"
+      },
+      {
+        "file": "icons/icon_wood-recycle.svg",
+        "name": "wood-recycle"
+      },
+      {
+        "file": "icons/icon_sub-parent-print.svg",
+        "name": "sub-parent-print"
+      },
+      {
+        "file": "icons/icon_turnover-box.svg",
+        "name": "turnover-box"
+      },
+      {
+        "file": "icons/icon_pickup-scan.svg",
+        "name": "pickup-scan"
+      },
+      {
+        "file": "icons/icon_intl-print.svg",
+        "name": "intl-print"
+      },
+      {
+        "file": "icons/icon_auto-sort.svg",
+        "name": "auto-sort"
+      },
+      {
+        "file": "icons/icon_arrival-scan.svg",
+        "name": "arrival-scan"
+      },
+      {
+        "file": "icons/icon_intl-cargo.svg",
+        "name": "intl-cargo"
+      },
+      {
+        "file": "icons/icon_hub-arrival.svg",
+        "name": "hub-arrival"
+      },
+      {
+        "file": "icons/icon_cargo-transfer.svg",
+        "name": "cargo-transfer"
+      },
+      {
+        "file": "icons/icon_agent-pickup.svg",
+        "name": "agent-pickup"
+      },
+      {
+        "file": "icons/icon_load-photo.svg",
+        "name": "load-photo"
+      },
+      {
+        "file": "icons/icon_dispatch-label.svg",
+        "name": "dispatch-label"
+      },
+      {
+        "file": "icons/icon_realname-query.svg",
+        "name": "realname-query"
+      },
+      {
+        "file": "icons/icon_freight-calculate.svg",
+        "name": "freight-calculate"
+      },
+      {
+        "file": "icons/icon_headless-photo.svg",
+        "name": "headless-photo"
+      },
+      {
+        "file": "icons/icon_ecom-label.svg",
+        "name": "ecom-label"
+      },
+      {
+        "file": "icons/icon_receiver-required.svg",
+        "name": "receiver-required"
+      },
+      {
+        "file": "icons/icon_morning-pick.svg",
+        "name": "morning-pick"
+      },
+      {
+        "file": "icons/icon_pickup-tool.svg",
+        "name": "pickup-tool"
+      },
+      {
+        "file": "icons/icon_d-label-photo.svg",
+        "name": "d-label-photo"
+      },
+      {
+        "file": "icons/icon_receipt-inventory.svg",
+        "name": "receipt-inventory"
+      },
+      {
+        "file": "icons/icon_sub-parent-add.svg",
+        "name": "sub-parent-add"
+      },
+      {
+        "file": "icons/icon_agent-label.svg",
+        "name": "agent-label"
+      },
+      {
+        "file": "icons/icon_photo-ocr.svg",
+        "name": "photo-ocr"
+      },
+      {
+        "file": "icons/icon_quick-collect.svg",
+        "name": "quick-collect"
+      },
+      {
+        "file": "icons/icon_receipt-urgent-return.svg",
+        "name": "receipt-urgent-return"
+      },
+      {
+        "file": "icons/icon_pickup-check.svg",
+        "name": "pickup-check"
+      },
+      {
+        "file": "icons/icon_sony-label.svg",
+        "name": "sony-label"
+      },
+      {
+        "file": "icons/icon_unseal-sign.svg",
+        "name": "unseal-sign"
+      },
+      {
+        "file": "icons/icon_electronic-label.svg",
+        "name": "electronic-label"
+      },
+      {
+        "file": "icons/icon_return.svg",
+        "name": "return"
+      },
+      {
+        "file": "icons/icon_quick-report.svg",
+        "name": "quick-report"
+      },
+      {
+        "file": "icons/icon_bind-return.svg",
+        "name": "bind-return"
+      },
+      {
+        "file": "icons/icon_wood-unload.svg",
+        "name": "wood-unload"
+      },
+      {
+        "file": "icons/icon_search-helper.svg",
+        "name": "search-helper"
+      },
+      {
+        "file": "icons/icon_ship-notify.svg",
+        "name": "ship-notify"
+      },
+      {
+        "file": "icons/icon_photo-print.svg",
+        "name": "photo-print"
+      },
+      {
+        "file": "icons/icon_fresh-project.svg",
+        "name": "fresh-project"
+      },
+      {
+        "file": "icons/icon_cargo-print.svg",
+        "name": "cargo-print"
+      },
+      {
+        "file": "icons/icon_custom-label.svg",
+        "name": "custom-label"
+      },
+      {
+        "file": "icons/icon_vip-label.svg",
+        "name": "vip-label"
+      },
+      {
+        "file": "icons/icon_print-waybill.svg",
+        "name": "print-waybill"
+      },
+      {
+        "file": "icons/icon_pickup-search.svg",
+        "name": "pickup-search"
+      },
+      {
+        "file": "icons/icon_unbox-photo.svg",
+        "name": "unbox-photo"
+      },
+      {
+        "file": "icons/icon_batch-fee.svg",
+        "name": "batch-fee"
+      },
+      {
+        "file": "icons/icon_reprint-master.svg",
+        "name": "reprint-master"
+      },
+      {
+        "file": "icons/icon_modify-origin.svg",
+        "name": "modify-origin"
+      },
+      {
+        "file": "icons/icon_vip-exclusive.svg",
+        "name": "vip-exclusive"
+      },
+      {
+        "file": "icons/icon_driver-form.svg",
+        "name": "driver-form"
+      },
+      {
+        "file": "icons/icon_pickup-label.svg",
+        "name": "pickup-label"
+      },
+      {
+        "file": "icons/icon_internal-report.svg",
+        "name": "internal-report"
+      },
+      {
+        "file": "icons/icon_report-form.svg",
+        "name": "report-form"
+      },
+      {
+        "file": "icons/icon_scan-count.svg",
+        "name": "scan-count"
+      },
+      {
+        "file": "icons/icon_barcode-check.svg",
+        "name": "barcode-check"
+      },
+      {
+        "file": "icons/icon_reassign-cage.svg",
+        "name": "reassign-cage"
+      },
+      {
+        "file": "icons/icon_reassign-package.svg",
+        "name": "reassign-package"
+      },
+      {
+        "file": "icons/icon_forklift-move.svg",
+        "name": "forklift-move"
+      },
+      {
+        "file": "icons/icon_charter-board.svg",
+        "name": "charter-board"
+      },
+      {
+        "file": "icons/icon_forklift-reweigh.svg",
+        "name": "forklift-reweigh"
+      },
+      {
+        "file": "icons/icon_sort-scan.svg",
+        "name": "sort-scan"
+      },
+      {
+        "file": "icons/icon_wood-register.svg",
+        "name": "wood-register"
+      },
+      {
+        "file": "icons/icon_transit-package.svg",
+        "name": "transit-package"
+      },
+      {
+        "file": "icons/icon_cage-manage.svg",
+        "name": "cage-manage"
+      },
+      {
+        "file": "icons/icon_auto-forklift.svg",
+        "name": "auto-forklift"
+      },
+      {
+        "file": "icons/icon_small-package.svg",
+        "name": "small-package"
+      },
+      {
+        "file": "icons/icon_supplement-code.svg",
+        "name": "supplement-code"
+      },
+      {
+        "file": "icons/icon_sorting-scan.svg",
+        "name": "sorting-scan"
+      },
+      {
+        "file": "icons/icon_oil-forklift-nfc.svg",
+        "name": "oil-forklift-nfc"
+      },
+      {
+        "file": "icons/icon_sort-cage.svg",
+        "name": "sort-cage"
+      },
+      {
+        "file": "icons/icon_sort-package.svg",
+        "name": "sort-package"
+      },
+      {
+        "file": "icons/icon_shortage-manage.svg",
+        "name": "shortage-manage"
+      },
+      {
+        "file": "icons/icon_container-collect.svg",
+        "name": "container-collect"
+      },
+      {
+        "file": "icons/icon_security-scan.svg",
+        "name": "security-scan"
+      },
+      {
+        "file": "icons/icon_return-scan.svg",
+        "name": "return-scan"
+      },
+      {
+        "file": "icons/icon_transit-unpack.svg",
+        "name": "transit-unpack"
+      },
+      {
+        "file": "icons/icon_quick-device.svg",
+        "name": "quick-device"
+      },
+      {
+        "file": "icons/icon_reassign-flight.svg",
+        "name": "reassign-flight"
+      },
+      {
+        "file": "icons/icon_stow-package.svg",
+        "name": "stow-package"
+      },
+      {
+        "file": "icons/icon_package-manage.svg",
+        "name": "package-manage"
+      },
+      {
+        "file": "icons/icon_oil-scan.svg",
+        "name": "oil-scan"
+      },
+      {
+        "file": "icons/icon_cargo-load.svg",
+        "name": "cargo-load"
+      },
+      {
+        "file": "icons/icon_pallet-cage.svg",
+        "name": "pallet-cage"
+      },
+      {
+        "file": "icons/icon_airport-exchange.svg",
+        "name": "airport-exchange"
+      },
+      {
+        "file": "icons/icon_pull-scan.svg",
+        "name": "pull-scan"
+      },
+      {
+        "file": "icons/icon_airport-return.svg",
+        "name": "airport-return"
+      },
+      {
+        "file": "icons/icon_airport-ship.svg",
+        "name": "airport-ship"
+      },
+      {
+        "file": "icons/icon_wood-crating.svg",
+        "name": "wood-crating"
+      },
+      {
+        "file": "icons/icon_asset-barcode.svg",
+        "name": "asset-barcode"
+      },
+      {
+        "file": "icons/icon_vehicle-inspect.svg",
+        "name": "vehicle-inspect"
+      },
+      {
+        "file": "icons/icon_ae-adjust.svg",
+        "name": "ae-adjust"
+      },
+      {
+        "file": "icons/icon_handover-scan.svg",
+        "name": "handover-scan"
+      },
+      {
+        "file": "icons/icon_reweigh-photo.svg",
+        "name": "reweigh-photo"
+      },
+      {
+        "file": "icons/icon_pallet-rebuild.svg",
+        "name": "pallet-rebuild"
+      },
+      {
+        "file": "icons/icon_cargo-detail.svg",
+        "name": "cargo-detail"
+      },
+      {
+        "file": "icons/icon_offline-manage.svg",
+        "name": "offline-manage"
+      },
+      {
+        "file": "icons/icon_auto-transfer.svg",
+        "name": "auto-transfer"
+      },
+      {
+        "file": "icons/icon_cargo-adjust.svg",
+        "name": "cargo-adjust"
+      },
+      {
+        "file": "icons/icon_delay-scan.svg",
+        "name": "delay-scan"
+      },
+      {
+        "file": "icons/icon_warehouse-manage.svg",
+        "name": "warehouse-manage"
+      },
+      {
+        "file": "icons/icon_batch-unload.svg",
+        "name": "batch-unload"
+      },
+      {
+        "file": "icons/icon_waterproof-cover.svg",
+        "name": "waterproof-cover"
+      },
+      {
+        "file": "icons/icon_unload-adjust.svg",
+        "name": "unload-adjust"
+      },
+      {
+        "file": "icons/icon_pickup-package.svg",
+        "name": "pickup-package"
+      },
+      {
+        "file": "icons/icon_departure-scan.svg",
+        "name": "departure-scan"
+      },
+      {
+        "file": "icons/icon_load-supervise.svg",
+        "name": "load-supervise"
       }
     ]
   }

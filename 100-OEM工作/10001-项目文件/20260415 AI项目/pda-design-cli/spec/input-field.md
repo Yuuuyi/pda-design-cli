@@ -39,10 +39,78 @@
 | 标题与输入区间距 | 16px | Gap (Default) | 默认间距 |
 | 标题宽度 | 120px | - | 固定宽度，不伸缩 |
 
-### 2.4 图标 (Icons)
+### 2.4 右侧插槽 (Right Slot)
 
-- 尺寸：`24px × 24px`
-- 位置：输入区域最右侧
+输入框右侧支持灵活配置，通过 `rightSlot` 属性传入不同类型的组件。
+
+#### 插槽类型支持
+
+| 类型 | 组件示例 | 适用场景 |
+|------|---------|---------|
+| **图标** | `IconSearch`, `IconClose`, `IconArrowRight` | 搜索、清除、跳转 |
+| **按钮** | `Button` (文字/图标按钮) | 发送验证码、确认操作 |
+| **下拉** | `Select`, `Dropdown` | 单位选择、地区选择 |
+| **自定义** | 任意 React/Vue 组件 | 特殊业务需求 |
+
+#### 图标调用规则
+
+> **重要：输入框内图标需调用 icon 包**
+
+输入框内图标必须从 `pda-design-cli/spec/icons/` 目录调用。
+
+| 用途 | 推荐图标 | 文件名 | 说明 |
+|------|---------|--------|------|
+| 搜索触发 | `search` | `icon_search.svg` | 点击展开搜索 |
+| 跳转入口 | `arrow_right` | `icon_arrow_right.svg` | 点击进入详情 |
+| 清除内容 | `close` | `icon_close.svg` | 点击清空输入 |
+| 下拉展开 | `arrow_down` | `icon_arrow_down.svg` | 下拉选择指示 |
+| 扫描触发 | `scanning` | `icon_scanning_outline.svg` | 调起扫码功能 |
+
+- 图标尺寸：`24px × 24px`
+- 图标颜色：默认 `#333333` (Black NO.6)，禁用态 `#9E9E9E` (Grey NO.5)
+- ~~`<img class="input-icon" src="./asset/icons/svg_0c378d38.svg" />`~~ → 请改用 icon 包引用
+
+**引用方式：**
+```typescript
+import { IconSearch, IconClose, IconArrowDown } from '@/components/icon';
+
+// 图标插槽
+<InputField
+  label="标题名称"
+  rightSlot={<IconSearch />}
+/>
+
+// 按钮插槽
+<InputField
+  label="手机号"
+  rightSlot={<Button size="small">获取验证码</Button>}
+/>
+
+// 下拉插槽
+<InputField
+  label="地区"
+  value="北京市"
+  rightSlot={<IconArrowDown />}
+/>
+```
+
+完整图标列表见 `spec/icons/index.json`。
+
+#### 插槽布局规范
+
+```
+┌─────────────────────────────────────────┐
+│  标题名称    输入内容          [插槽]   │  ← 插槽区域固定右对齐
+│  ─────────────────────────────────────  │
+└─────────────────────────────────────────┘
+              ↑
+         插槽与输入内容间距：8px
+         插槽与容器右边距：16px
+```
+
+- 插槽区域最大宽度：120px（超出时截断或换行）
+- 多个元素时水平排列，间距 `8px`
+- 插槽内元素垂直居中对齐
 
 ## 3. 组件结构
 
@@ -56,7 +124,7 @@
     <!-- Label: 左侧标题 (固定样式) -->
     <label class="input-label">标题名称</label>
 
-    <!-- Input Area: 右侧输入与图标 -->
+    <!-- Input Area: 中间输入区域 -->
     <div class="input-area">
       <!--
       根据状态切换 class 或内容：
@@ -64,15 +132,18 @@
       - Filled State: <span class="input-value">已输入文本</span>
       -->
       <span class="input-value">已输入文本</span>
+    </div>
 
-      <!-- 右侧图标 -->
-      <img class="input-icon" src="./asset/icons/svg_0c378d38.svg" />
+    <!-- Right Slot: 右侧插槽（图标/按钮/下拉等） -->
+    <div class="input-right-slot">
+      <!-- 可配置：图标、按钮、下拉组件等 -->
+      <img class="input-icon" src="icon_search.svg" />
     </div>
 
   </div>
 
-  <!-- Divider: 底部分割线 -->
-  <img class="input-divider" src="./asset/icons/svg_24cd536b.svg" />
+  <!-- Divider: 底部分割线（使用 CSS border 实现） -->
+  <div class="input-divider"></div>
 
 </div>
 ```
@@ -98,15 +169,114 @@ interface InputFieldProps {
   placeholder?: string;
   /** 是否禁用 */
   disabled?: boolean;
-  /** 右侧图标路径，为空则不显示 */
+  /** 
+   * 右侧插槽内容
+   * 支持：图标组件、按钮、下拉选择器、自定义组件
+   * @deprecated iconSrc 已废弃，请使用 rightSlot
+   */
+  rightSlot?: React.ReactNode;
+  /** @deprecated 请使用 rightSlot */
   iconSrc?: string;
 }
 
 // 使用示例
-// <InputField label="标题名称" placeholder="请输入" />
-// <InputField label="标题名称" value="已输入文本" />
+
+// 基础用法
+<InputField label="标题名称" placeholder="请输入" />
+
+// 带搜索图标
+<InputField 
+  label="搜索" 
+  placeholder="请输入关键词"
+  rightSlot={<IconSearch />}
+/>
+
+// 带清除按钮（有内容时显示）
+<InputField 
+  label="用户名" 
+  value="张三"
+  rightSlot={<IconClose onClick={handleClear} />}
+/>
+
+// 带验证码按钮
+<InputField 
+  label="手机号" 
+  placeholder="请输入手机号"
+  rightSlot={<Button size="small" disabled={counting}>{count}秒后重发</Button>}
+/>
+
+// 带下拉指示
+<InputField 
+  label="地区" 
+  value="北京市"
+  rightSlot={<IconArrowDown />}
+  onClick={() => setPickerVisible(true)}
+/>
 ```
+
+## 6. 右侧插槽样式规范
+
+```css
+.input-field-row {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+
+.input-label {
+  width: 120px;
+  flex-shrink: 0;
+  font-weight: bold;
+  color: #333333;
+}
+
+.input-area {
+  flex: 1;
+  min-width: 0; /* 确保 flex 子项可以收缩 */
+}
+
+.input-right-slot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 8px;
+  max-width: 120px;
+  flex-shrink: 0;
+}
+
+/* 插槽内图标样式 */
+.input-right-slot .icon {
+  width: 24px;
+  height: 24px;
+  color: #333333; /* Black NO.6 */
+}
+
+/* 禁用态 */
+.input-field-container.disabled .input-right-slot .icon {
+  color: #9E9E9E; /* Grey NO.5 */
+}
+
+/* 插槽内按钮样式 */
+.input-right-slot .btn {
+  font-size: 14px;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+```
+
+## 7. 常见组合示例
+
+| 场景 | 插槽配置 | 交互说明 |
+|------|---------|---------|
+| 搜索框 | `IconSearch` | 点击图标触发搜索 |
+| 可清除输入 | 有内容时显示 `IconClose` | 点击清空输入内容 |
+| 手机验证码 | `Button` | 点击发送验证码，倒计时禁用 |
+| 地区选择 | `IconArrowDown` + 点击展开 | 点击整行或图标展开选择器 |
+| 扫码输入 | `IconScanning` | 点击调起扫码功能 |
+| 跳转详情 | `IconArrowRight` | 点击进入详情页 |
 
 ## 总结
 
 通过将两种状态合并为一个组件，避免了代码重复。组件内部通过判断 `value` 是否存在来决定渲染"占位符"（弱色）还是"实际值"（主色），从而完美适配设计系统中的 Color-Functional-Black 与 Color-Functional-Grey 层级。
+
+**v1.2.6 更新**：新增 `rightSlot` 属性，支持图标、按钮、下拉等灵活配置，废弃 `iconSrc` 属性。

@@ -1,13 +1,13 @@
 /**
- * `list` command - List all available components and tokens
+ * `list` command - 列出所有可用的组件、Token、图标
  */
 
 const chalk = require('chalk');
 const ora = require('ora');
-const { fetchRegistry } = require('../fetch');
+const { fetchRegistry, listLocalFiles } = require('../fetch');
 
 async function listCommand(options) {
-  const spinner = ora('Loading registry...').start();
+  const spinner = ora('加载规范列表...').start();
 
   try {
     const registry = await fetchRegistry(options.registry);
@@ -15,7 +15,7 @@ async function listCommand(options) {
 
     const category = options.category;
 
-    // List components
+    // 组件
     if (registry.components) {
       const components = Object.entries(registry.components);
       const filtered = category
@@ -23,9 +23,9 @@ async function listCommand(options) {
         : components;
 
       if (filtered.length > 0) {
-        console.log(chalk.bold('\n📦 Components:\n'));
+        console.log(chalk.bold('\n📦 组件 (Components):\n'));
 
-        // Group by category
+        // 按分类分组
         const grouped = {};
         for (const [key, value] of filtered) {
           const cat = value.category || 'other';
@@ -37,47 +37,52 @@ async function listCommand(options) {
           console.log(chalk.cyan(`  ${cat}:`));
           for (const item of items) {
             console.log(`    ${chalk.green(item.key.padEnd(25))} ${chalk.dim(item.name)}`);
-            if (item.tags && item.tags.length > 0) {
-              console.log(chalk.dim(`    ${' '.repeat(25)} tags: ${item.tags.join(', ')}`));
-            }
           }
         }
+
+        console.log(chalk.dim('\n  用法: npx pda-design-cli add <组件名>'));
       }
     }
 
-    // List tokens
+    // Token
     if (registry.tokens) {
-      console.log(chalk.bold('\n🎨 Design Tokens:\n'));
+      console.log(chalk.bold('\n🎨 设计 Token:\n'));
       for (const [key, value] of Object.entries(registry.tokens)) {
         console.log(`    ${chalk.green(key.padEnd(20))} ${chalk.dim(value)}`);
       }
+      console.log(chalk.dim('\n  用法: npx pda-design-cli add token:colors'));
     }
 
-    // List guidelines
+    // Guidelines
     if (registry.guidelines) {
-      console.log(chalk.bold('\n📐 Guidelines:\n'));
+      console.log(chalk.bold('\n📐 设计指南:\n'));
       for (const [key, value] of Object.entries(registry.guidelines)) {
         console.log(`    ${chalk.green(key.padEnd(20))} ${chalk.dim(value)}`);
       }
+      console.log(chalk.dim('\n  用法: npx pda-design-cli add guideline:role'));
     }
 
-    // List icons
+    // 图标
     if (registry.icons) {
-      console.log(chalk.bold(`\n🖼️  Icons (${registry.icons.total || ''}):\n`));
+      console.log(chalk.bold(`\n🖼️  图标 (Icons, 共 ${registry.icons.total || ''} 个):\n`));
       const iconCategories = registry.icons.categories;
       if (iconCategories) {
         for (const [cat, info] of Object.entries(iconCategories)) {
-          console.log(`    ${chalk.green(cat.padEnd(18))} ${chalk.dim(`${info.count} icons — ${info.description}`)}`);
+          console.log(`    ${chalk.green(cat.padEnd(18))} ${chalk.dim(`${info.count} 个 — ${info.description}`)}`);
         }
       }
-      console.log(chalk.dim(`\n    Usage: pda-design add icon:add_outline`));
-      console.log(chalk.dim(`           pda-design add icon:arrow_down`));
+      console.log(chalk.dim('\n  用法: npx pda-design-cli add icon:add_outline'));
     }
+
+    // 保存全部
+    console.log(chalk.bold('\n💾 批量导出:\n'));
+    console.log(`    ${chalk.green('npx pda-design-cli init')}            ${chalk.dim('导出所有规范到 ./pda-design-specs/')}`);
+    console.log(`    ${chalk.green('npx pda-design-cli init -o ./docs')}  ${chalk.dim('导出所有规范到 ./docs/')}`);
 
     console.log('');
 
   } catch (error) {
-    spinner.fail(chalk.red(`Failed: ${error.message}`));
+    spinner.fail(chalk.red(`失败: ${error.message}`));
     process.exit(1);
   }
 }
