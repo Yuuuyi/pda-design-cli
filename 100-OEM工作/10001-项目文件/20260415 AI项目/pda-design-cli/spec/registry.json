@@ -103,7 +103,8 @@
     "role": "guidelines/role.md",
     "layout": "guidelines/layout.md",
     "anti-patterns": "guidelines/anti-patterns.md",
-    "accessibility": "guidelines/accessibility.md"
+    "accessibility": "guidelines/accessibility.md",
+    "icon-usage": "guidelines/icon-usage.md"
   },
   "icons": {
     "index": "icons/index.json",
