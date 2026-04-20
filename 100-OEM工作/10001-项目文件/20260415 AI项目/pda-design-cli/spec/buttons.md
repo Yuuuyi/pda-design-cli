@@ -98,8 +98,8 @@
 
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
-| **Default** | `#52567B` | `#FFFFFF` | 无 | Grey-NO.7 / White |
-| **Pressed/Hover** | `#424242` | `#FFFFFF` | 无 | Grey-NO.8 / White |
+| **Default** | `#52567B` | `#FFFFFF` | 无 | Grey-NO.6 / White |
+| **Pressed/Hover** | `#424242` | `#FFFFFF` | 无 | Grey-NO.7 / White |
 | **Disabled** | `#9E9E9E` | `#FFFFFF` | 无 | Grey-NO.5 / White |
 
 ### 4.2 Gray Light
@@ -108,8 +108,8 @@
 
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
-| **Default** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.7 |
-| **Pressed/Hover** | `#E0E0E0` | `#424242` | 无 | Grey-NO.3 / Grey-NO.8 |
+| **Default** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.6 |
+| **Pressed/Hover** | `#E0E0E0` | `#424242` | 无 | Grey-NO.3 / Grey-NO.7 |
 | **Disabled** | `#EEEEEE` | `#BDBDBD` | 无 | Grey-NO.2 / Grey-NO.4 |
 
 ### 4.3 Gray Outline
@@ -118,8 +118,8 @@
 
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
-| **Default** | `#FFFFFF` | `#52567B` | 1px solid #52567B | White / Grey-NO.7 |
-| **Pressed/Hover** | `#F5F5F5` | `#424242` | 1px solid #424242 | Grey-NO.1 / Grey-NO.8 |
+| **Default** | `#FFFFFF` | `#52567B` | 1px solid #52567B | White / Grey-NO.6 |
+| **Pressed/Hover** | `#F5F5F5` | `#424242` | 1px solid #424242 | Grey-NO.1 / Grey-NO.7 |
 | **Disabled** | `#FFFFFF` | `#BDBDBD` | 1px solid #BDBDBD | White / Grey-NO.4 |
 
 ---
@@ -144,8 +144,8 @@
 
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
-| **Default** | 无 | `#52567B` | 无 | Grey-NO.7 |
-| **Pressed/Hover** | `#F5F5F5` | `#424242` | 无 | Grey-NO.1 / Grey-NO.8 |
+| **Default** | 无 | `#52567B` | 无 | Grey-NO.6 |
+| **Pressed/Hover** | `#F5F5F5` | `#424242` | 无 | Grey-NO.1 / Grey-NO.7 |
 | **Disabled** | 无 | `#BDBDBD` | 无 | Grey-NO.4 |
 
 ---
