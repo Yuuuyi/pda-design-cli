@@ -3,23 +3,18 @@
   "version": "1.0.0",
   "description": "AI 组件库设计规范",
   "components": {
+    "buttons": {
+      "name": "按钮系统 (Buttons)",
+      "file": "buttons.md",
+      "category": "button",
+      "tags": ["button", "primary", "outline", "ghost", "gray", "按钮"],
+      "note": "统一管理所有按钮变体：Primary/Outline/Red/Yellow/Gray/Ghost"
+    },
     "modal-container": {
       "name": "弹窗容器 (Modal Container)",
       "file": "modal-container.md",
       "category": "feedback",
       "tags": ["modal", "dialog", "popup", "弹窗"]
-    },
-    "primary-button": {
-      "name": "主按钮 (Primary Button)",
-      "file": "primary-button.md",
-      "category": "button",
-      "tags": ["button", "primary", "主按钮"]
-    },
-    "ghost-button": {
-      "name": "幽灵按钮 (Ghost Button)",
-      "file": "ghost-button.md",
-      "category": "button",
-      "tags": ["button", "ghost", "幽灵按钮"]
     },
     "floating-bottom-button": {
       "name": "底部悬浮按钮 (Floating Bottom Button)",
