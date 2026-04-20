@@ -32,4 +32,18 @@
 - 让代码库比你接手时更加整洁、连贯。
 - 确保布局具有响应式能力，并在不同设备上可用。
 - 做出深思熟虑、富有创意的设计选择（布局、动效、交互细节和排版），以体现设计系统的独特个性，避免产出通用或千篇一律的 UI。
+
+## 强制约束
+
+### 图标使用规范
+
+**所有图标必须使用本设计系统的图标库（spec/icons/），禁止使用外部图标源。**
+
+详见：[图标使用强制规范](./icon-usage.md)
+
+| 禁止 | 允许 |
+|------|------|
+| ❌ Lucide、Heroicons、Feather Icons | ✅ `spec/icons/` 目录（499 个图标） |
+| ❌ Material Icons、Ant Design Icons | ✅ `spec/icons/index.json` 查询列表 |
+| ❌ 从网络下载 SVG | ✅ 按分类查找：action/business/status 等 |
 </role>

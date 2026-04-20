@@ -1,6 +1,6 @@
 {
   "name": "pda-design-cli",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "PDA Design System CLI - 拉取设计规范，供 AI 读取和开发参考。包含组件规范、设计 Token 和图标。",
   "bin": {
     "pda-design": "./bin/cli.js"
