@@ -16,7 +16,7 @@
 |------|------|-----------|------|
 | **容器** | Width | `400px` | 固定宽度 |
 | | Background | `#FFFFFF` | 白色背景 |
-| | Border Radius | `20px` (Top) | 仅顶部圆角 |
+| | Border Radius | `20px` | 四周统一圆角 |
 | **标题** | Font Family | `PingFang SC` | 苹方字体 |
 | | Font Size | `22px` | - |
 | | Font Weight | `600` (Bold) | - |

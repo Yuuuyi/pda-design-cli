@@ -186,10 +186,15 @@
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Default** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
-| **Pressed/Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **Pressed** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
 | **Disabled** | `#D4C2F4` | `#FFFFFF` | 无 | Pri-NO.2 / White |
-| **Outline Default** | 透明 | `#6445D1` | 1px solid #6445D1 | White / Pri-NO.6 |
-| **Outline Subtle** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 |
+| **Outline Default** | `#FFFFFF` | `#6445D1` | 1px solid #6445D1 | White / Pri-NO.6 |
+| **Outline Hover** | `#F1E7FF` | `#432CB0` | 1px solid #432CB0 | Pri-NO.1 / Pri-NO.7 |
+| **Outline Pressed** | `#D4C2F4` | `#432CB0` | 1px solid #432CB0 | Pri-NO.2 / Pri-NO.7 |
+| **Outline Subtle Default** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 / Pri-NO.6 |
+| **Outline Subtle Hover** | `#D4C2F4` | `#6445D1` | 1px solid #6445D1 | Pri-NO.2 / Pri-NO.6 |
+| **Outline Subtle Pressed** | `#D4C2F4` | `#432CB0` | 1px solid #432CB0 | Pri-NO.2 / Pri-NO.7 |
 | **Outline Disabled** | `#FFFFFF` | `#D4C2F4` | 1px solid #D4C2F4 | White / Pri-NO.2 |
 
 ### 红色系 (Functional Red)
@@ -197,7 +202,8 @@
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Default** | `#FF3333` | `#FFFFFF` | 无 | Red-NO.5 / White |
-| **Pressed/Hover** | `#CC0000` | `#FFFFFF` | 无 | Red-NO.7 / White |
+| **Hover** | `#CC0000` | `#FFFFFF` | 无 | Red-NO.7 / White |
+| **Pressed** | `#CC0000` | `#FFFFFF` | 无 | Red-NO.7 / White |
 | **Disabled** | `#FFB3B3` | `#FFFFFF` | 无 | Red-NO.2 / White |
 
 > **色值映射：** 原规范 #FB5251 → Red-NO.5；#CF3337 → Red-NO.7；#FDB2AC → Red-NO.2。
@@ -207,7 +213,8 @@
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Default** | `#FFEB60` | `#333333` | 无 | Yellow-NO.5 / Black-NO.6 |
-| **Pressed/Hover** | `#F5B000` | `#333333` | 无 | Yellow-NO.7 / Black-NO.6 |
+| **Hover** | `#FFD933` | `#333333` | 无 | Yellow-NO.6 / Black-NO.6 |
+| **Pressed** | `#F5B000` | `#333333` | 无 | Yellow-NO.7 / Black-NO.6 |
 | **Disabled** | `#FFF3B0` | `#999999` | 无 | Yellow-NO.3 / Black-NO.4 |
 
 > **色值映射：** 原规范 #FF9F02 → Yellow-NO.5；#D07A01 → Yellow-NO.7；#FFCC5E → Yellow-NO.4（取 #FFEE8A）。
@@ -217,21 +224,31 @@
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Gray Solid Default** | `#52567B` | `#FFFFFF` | 无 | Grey-NO.6 / White |
+| **Gray Solid Hover** | `#424242` | `#FFFFFF` | 无 | Grey-NO.7 / White |
 | **Gray Solid Pressed** | `#424242` | `#FFFFFF` | 无 | Grey-NO.7 / White |
 | **Gray Solid Disabled** | `#9E9E9E` | `#FFFFFF` | 无 | Grey-NO.5 / White |
 | **Gray Light Default** | `#EEEEEE` | `#333333` | 无 | Grey-NO.2 / Black-NO.6 |
-| **Gray Light Disabled** | `#EEEEEE` | `#A4ACCA` | 无 | Grey-NO.2 |
-
-> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2；#A4ACCA → 无标准色，建议用 #BDBDBD (Grey-NO.4)。
+| **Gray Light Hover** | `#E0E0E0` | `#333333` | 无 | Grey-NO.3 / Black-NO.6 |
+| **Gray Light Pressed** | `#E0E0E0` | `#333333` | 无 | Grey-NO.3 / Black-NO.6 |
+| **Gray Light Disabled** | `#EEEEEE` | `#BDBDBD` | 无 | Grey-NO.2 / Grey-NO.4 |
+| **Gray Outline Default** | `#FFFFFF` | `#52567B` | 1px solid #52567B | White / Grey-NO.6 |
+| **Gray Outline Hover** | `#F5F5F5` | `#424242` | 1px solid #424242 | Grey-NO.1 / Grey-NO.7 |
+| **Gray Outline Pressed** | `#EEEEEE` | `#424242` | 1px solid #424242 | Grey-NO.2 / Grey-NO.7 |
+| **Gray Outline Disabled** | `#FFFFFF` | `#BDBDBD` | 1px solid #BDBDBD | White / Grey-NO.4 |
+> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2；原规范 #A4ACCA 未命中标准色阶，统一替换为 Grey-NO.4（#BDBDBD）。
 
 ### 幽灵按钮 (Ghost)
 
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Ghost Primary Default** | 无 | `#6445D1` | 无 | Pri-NO.6 |
-| **Ghost Primary Pressed** | `#F1E7FF` | `#432CB0` | 无 | Pri-NO.1 / Pri-NO.7 |
+| **Ghost Primary Hover** | `#F1E7FF` | `#432CB0` | 无 | Pri-NO.1 / Pri-NO.7 |
+| **Ghost Primary Pressed** | `#D4C2F4` | `#432CB0` | 无 | Pri-NO.2 / Pri-NO.7 |
+| **Ghost Primary Disabled** | 无 | `#D4C2F4` | 无 | Pri-NO.2 |
 | **Ghost Gray Default** | 无 | `#52567B` | 无 | Grey-NO.6 |
-| **Ghost Gray Pressed** | `#F5F5F5` | `#424242` | 无 | Grey-NO.1 / Grey-NO.7 |
+| **Ghost Gray Hover** | `#F5F5F5` | `#424242` | 无 | Grey-NO.1 / Grey-NO.7 |
+| **Ghost Gray Pressed** | `#EEEEEE` | `#424242` | 无 | Grey-NO.2 / Grey-NO.7 |
+| **Ghost Gray Disabled** | 无 | `#BDBDBD` | 无 | Grey-NO.4 |
 
 ---
 
@@ -259,10 +276,15 @@
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Default** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
-| **Pressed/Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **Pressed** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
 | **Disabled** | `#D4C2F4` | `#FFFFFF` | 无 | Pri-NO.2 / White |
 | **Outline Default** | `#FFFFFF` | `#6445D1` | 1px solid #6445D1 | White / Pri-NO.6 |
-| **Outline Subtle** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 |
+| **Outline Hover** | `#F1E7FF` | `#432CB0` | 1px solid #432CB0 | Pri-NO.1 / Pri-NO.7 |
+| **Outline Pressed** | `#D4C2F4` | `#432CB0` | 1px solid #432CB0 | Pri-NO.2 / Pri-NO.7 |
+| **Outline Subtle Default** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 / Pri-NO.6 |
+| **Outline Subtle Hover** | `#D4C2F4` | `#6445D1` | 1px solid #6445D1 | Pri-NO.2 / Pri-NO.6 |
+| **Outline Subtle Pressed** | `#D4C2F4` | `#432CB0` | 1px solid #432CB0 | Pri-NO.2 / Pri-NO.7 |
 | **Outline Disabled** | `#FFFFFF` | `#D4C2F4` | 1px solid #D4C2F4 | White / Pri-NO.2 |
 
 ### 红色系 (Functional Red)
@@ -270,7 +292,8 @@
 | 状态 | 背景色 | 文字颜色 | Token 映射 |
 |------|--------|----------|-----------|
 | **Default** | `#FF3333` | `#FFFFFF` | Red-NO.5 / White |
-| **Pressed/Hover** | `#CC0000` | `#FFFFFF` | Red-NO.7 / White |
+| **Hover** | `#CC0000` | `#FFFFFF` | Red-NO.7 / White |
+| **Pressed** | `#CC0000` | `#FFFFFF` | Red-NO.7 / White |
 | **Disabled** | `#FFB3B3` | `#FFFFFF` | Red-NO.2 / White |
 
 > **色值映射：** 原规范 #FB5251 → Red-NO.5；#CF3337 → Red-NO.7；#FFD0C9 → Red-NO.2；#FD948D → 无标准色，建议用 #FFB3B3。
@@ -280,7 +303,8 @@
 | 状态 | 背景色 | 文字颜色 | Token 映射 |
 |------|--------|----------|-----------|
 | **Default** | `#FFEB60` | `#333333` | Yellow-NO.5 / Black-NO.6 |
-| **Pressed/Hover** | `#F5B000` | `#333333` | Yellow-NO.7 / Black-NO.6 |
+| **Hover** | `#FFD933` | `#333333` | Yellow-NO.6 / Black-NO.6 |
+| **Pressed** | `#F5B000` | `#333333` | Yellow-NO.7 / Black-NO.6 |
 | **Disabled** | `#FFF3B0` | `#999999` | Yellow-NO.3 / Black-NO.4 |
 
 > **色值映射：** 原规范 #FF9F02 → Yellow-NO.5；#D07A01 → Yellow-NO.7；#FFEEBA → Yellow-NO.3。
@@ -290,22 +314,32 @@
 | 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |------|--------|----------|------|-----------|
 | **Gray Solid Default** | `#52567B` | `#FFFFFF` | 无 | Grey-NO.6 / White |
-| **Gray Solid Subtle** | `#383B6F` | `#FFFFFF` | 无 | 深色变体（无标准色） |
+| **Gray Solid Hover** | `#424242` | `#FFFFFF` | 无 | Grey-NO.7 / White |
+| **Gray Solid Pressed** | `#424242` | `#FFFFFF` | 无 | Grey-NO.7 / White |
 | **Gray Solid Disabled** | `#9E9E9E` | `#FFFFFF` | 无 | Grey-NO.5 / White |
 | **Gray Light Default** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.6 |
-| **Gray Light Disabled** | `#EEEEEE` | `#A4ACCA` | 无 | Grey-NO.2 |
+| **Gray Light Hover** | `#E0E0E0` | `#424242` | 无 | Grey-NO.3 / Grey-NO.7 |
+| **Gray Light Pressed** | `#E0E0E0` | `#424242` | 无 | Grey-NO.3 / Grey-NO.7 |
+| **Gray Light Disabled** | `#EEEEEE` | `#BDBDBD` | 无 | Grey-NO.2 / Grey-NO.4 |
 | **Gray Outline Default** | `#FFFFFF` | `#52567B` | 1px solid #52567B | White / Grey-NO.6 |
+| **Gray Outline Hover** | `#F5F5F5` | `#424242` | 1px solid #424242 | Grey-NO.1 / Grey-NO.7 |
+| **Gray Outline Pressed** | `#EEEEEE` | `#424242` | 1px solid #424242 | Grey-NO.2 / Grey-NO.7 |
+| **Gray Outline Disabled** | `#FFFFFF` | `#BDBDBD` | 1px solid #BDBDBD | White / Grey-NO.4 |
 
-> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2；#A4ACCA → 无标准色，建议用 #BDBDBD (Grey-NO.4)。
+> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2；原规范 #A4ACCA 未命中标准色阶，统一替换为 Grey-NO.4（#BDBDBD）。
 
 ### 幽灵按钮 (Ghost)
 
 | 状态 | 背景色 | 文字颜色 | Token 映射 |
 |------|--------|----------|-----------|
 | **Ghost Primary Default** | 无 | `#6445D1` | Pri-NO.6 |
-| **Ghost Primary Pressed** | `#F1E7FF` | `#432CB0` | Pri-NO.1 / Pri-NO.7 |
+| **Ghost Primary Hover** | `#F1E7FF` | `#432CB0` | Pri-NO.1 / Pri-NO.7 |
+| **Ghost Primary Pressed** | `#D4C2F4` | `#432CB0` | Pri-NO.2 / Pri-NO.7 |
+| **Ghost Primary Disabled** | 无 | `#D4C2F4` | Pri-NO.2 |
 | **Ghost Gray Default** | 无 | `#52567B` | Grey-NO.6 |
-| **Ghost Gray Pressed** | `#F5F5F5` | `#424242` | Grey-NO.1 / Grey-NO.7 |
+| **Ghost Gray Hover** | `#F5F5F5` | `#424242` | Grey-NO.1 / Grey-NO.7 |
+| **Ghost Gray Pressed** | `#EEEEEE` | `#424242` | Grey-NO.2 / Grey-NO.7 |
+| **Ghost Gray Disabled** | 无 | `#BDBDBD` | Grey-NO.4 |
 
 ---
 
@@ -313,38 +347,36 @@
 
 按钮组是 Large Button 的组合布局，用于在多个互斥选项中切换（如筛选、模式切换）。子项继承 Large Button 的核心参数，通过 `border-radius` 控制整体形状。
 
-### 核心参数
+### 尺寸变体
 
-| 属性 | 值 |
-|------|-----|
-| 容器圆角 | 8px |
-| 子项高度 | 64px（继承 Large Button） |
-| 子项内边距 | 17px（垂直） 16px（水平） |
-| 子项宽度 | min-width: 100px，max-width: 448px，flex: 1 均分 |
-| 字体 | PingFang SC / 22px / Line-height: 30px / font-weight: 600 (Bold) |
-| 子项间距 | gap: 1px（露出底层色作为分割线） |
+| 尺寸 | 容器圆角 | 子项高度 | 子项内边距 | 子项宽度 | 字体 | 子项间距 |
+|------|----------|----------|------------|----------|------|----------|
+| **Large** | 8px | 64px | 17px 16px | min-width: 100px，max-width: 448px，flex: 1 | PingFang SC / 22px / line-height: 32px / 600 | 1px |
+| **Medium** | 4px | 46px | 12px 12px | min-width: 56px，max-width: 220px，flex: 1 | PingFang SC / 16px / line-height: 22px / 600 | 1px |
+| **Small** | 4px | 32px | 5px 8px | min-width: 48px，max-width: 144px，flex: 1 | PingFang SC / 14px / line-height: 20px / 600 | 1px |
 
-### 默认状态 (Default)
+### 状态矩阵
 
 | 子项状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
 |----------|--------|----------|------|-----------|
-| **未选中项** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.6 |
-| **选中项** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
+| **未选中 Default** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.6 |
+| **未选中 Hover** | `#E0E0E0` | `#424242` | 无 | Grey-NO.3 / Grey-NO.7 |
+| **未选中 Pressed** | `#E0E0E0` | `#424242` | 无 | Grey-NO.3 / Grey-NO.7 |
+| **未选中 Disabled** | `#EEEEEE` | `#BDBDBD` | 无 | Grey-NO.2 / Grey-NO.4 |
+| **选中 Default** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
+| **选中 Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **选中 Pressed** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **选中 Disabled** | `#D4C2F4` | `#FFFFFF` | 无 | Pri-NO.2 / White |
 
 > **色值映射：** 原规范 #F3F4F6 → Grey-NO.2（#EEEEEE）；#52567B 命中标准色，保留。
 
-### 交互状态
-
-| 子项状态 | Hover | Pressed | Disabled |
-|----------|-------|---------|----------|
-| **未选中项** | 背景加深至 `#E0E0E0` | 背景加深至 `#D0D0D0` | 背景 `#EEEEEE`，文字 `#BDBDBD`，cursor: not-allowed |
-| **选中项** | 背景加深至 `#4A33A8` | 背景加深至 `#432CB0`（同 Large Pressed） | 背景 `#D4C2F4`，文字 `#FFFFFF` |
+> **交互规则：** Button Group 的 Large / Medium / Small 三种尺寸共用同一套颜色状态，仅尺寸、圆角和字级随对应按钮规格变化。
 
 ### 形态变体 (Layout Variants)
 
 #### 全包围式
 
-外层容器设置 `border-radius: 8px`，内部子项 `border-radius: 0`，首尾子项由容器统一控制圆角。
+外层容器设置对应尺寸的 `border-radius`，内部子项 `border-radius: 0`，首尾子项由容器统一控制圆角。
 
 ```css
 .button-group {
@@ -362,7 +394,7 @@
 
 #### 左右拼接式
 
-每个子项独立控制自身圆角，左侧项保留左圆角、右侧项保留右圆角，中间子项无圆角。
+每个子项独立控制自身圆角，左侧项保留左圆角、右侧项保留右圆角，中间子项无圆角。Large 使用 `8px`，Medium / Small 使用 `4px`。
 
 ```css
 .button-group__item {
@@ -379,6 +411,13 @@
 ```
 
 > **推荐优先使用左右拼接式**，子项独立性强，不依赖父容器背景条件。
+
+### Medium / Small 使用建议
+
+| 尺寸 | 推荐场景 | 说明 |
+|------|----------|------|
+| **Medium Button Group** | 表单区域筛选、卡片头部切换、弹窗内模式切换 | 继承 Medium Button 的紧凑尺寸，适合一行内放 2-3 个选项 |
+| **Small Button Group** | 列表行内切换、输入框尾部状态切换、工具条模式切换 | 继承 Small Button 的触达效率，优先用于局部场景，不替代主操作按钮 |
 
 ### 分割线逻辑
 
