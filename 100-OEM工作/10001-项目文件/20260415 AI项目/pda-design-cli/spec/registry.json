@@ -84,6 +84,13 @@
       "category": "feedback",
       "tags": ["action-sheet", "bottom-sheet", "more", "更多", "操作面板"],
       "note": "底部弹出的动作面板，图标统一调用 icon 包 business 分类"
+    },
+    "divider": {
+      "name": "分割线 (Divider)",
+      "file": "divider.md",
+      "category": "layout",
+      "tags": ["divider", "separator", "分割线", "实线", "虚线"],
+      "note": "内容区块分隔，支持实线和虚线两种样式"
     }
   },
   "tokens": {
