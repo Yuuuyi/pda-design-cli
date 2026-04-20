@@ -191,6 +191,20 @@
         "标记"
       ],
       "note": "轻量级状态标记和分类标签，支持 6 种颜色变体和 2 种尺寸"
+    },
+    "popover": {
+      "name": "气泡卡片 (Popover)",
+      "file": "popover.md",
+      "category": "feedback",
+      "tags": [
+        "popover",
+        "tooltip",
+        "bubble",
+        "气泡",
+        "提示",
+        "tooltip"
+      ],
+      "note": "补充说明和提示气泡，支持上下箭头方向"
     }
   },
   "tokens": {
