@@ -87,10 +87,19 @@
 
 | 状态 | 行为 |
 |------|------|
-| **未扫态** | 点击触发扫码枪事件或唤起软键盘 |
-| **已扫态** | 点击可将运单号复制到剪贴板（需配合 Toast 提示） |
+| **未扫态** | 显示 QR Code 图标，点击触发扫码枪事件或唤起软键盘 |
+| **已扫态** | 显示运单号文本，点击复制到剪贴板 |
 
-### 右侧区域 (Action Button)
+### 右侧区域 (Copy Button)
+
+| 属性 | 说明 |
+|------|------|
+| 显示规则 | 仅在已扫状态下显示 |
+| 图标 | 固定使用 `icon_copy_outline.svg` |
+| 功能 | 点击复制运单号到剪贴板，配合 Toast 提示 |
+| 禁止 | ❌ 不可使用其他复制图标（如 `icon_copy_two.svg`） |
+
+### 右侧操作按钮 (Action Button)
 
 | 属性 | 说明 |
 |------|------|
@@ -109,18 +118,39 @@
 
 扫描框内图标必须从 `pda-design-cli/spec/icons/` 目录调用。
 
-| 用途 | 推荐图标 | 文件名 | 说明 |
-|------|---------|--------|------|
-| 扫描图标 | `scanning` | `icon_scanning_outline.svg` | 扫描入口图标 |
+### 7.1 图标使用规范
 
-- **图标尺寸：** `24px × 24px`
-- **图标颜色：** 继承父级文本色或独立设置
+| 状态 | 位置 | 图标 | 文件名 | 说明 |
+|------|------|------|--------|------|
+| **未扫态 (Empty)** | 左侧 | QR Code | `icon_qr_code.svg` | 扫描入口图标 |
+| **已扫态 (Filled)** | 右侧复制按钮 | Copy | `icon_copy_outline.svg` | 复制运单号图标 |
 
-**引用方式：**
+> **强制约束：** 已扫态复制按钮必须使用 `icon_copy_outline.svg`，不可使用其他复制图标。
+
+### 7.2 图标参数
+
+| 属性 | 值 |
+|------|-----|
+| 图标尺寸 | `24px × 24px` |
+| 图标颜色 | 继承父级文本色 |
+
+### 7.3 引用方式
+
 ```typescript
-import { IconScanningOutline } from 'pda-design-cli/spec/icons';
+import { IconQrCode, IconCopyOutline } from 'pda-design-cli/spec/icons';
 
-<ScanInput icon={<IconScanningOutline />} />
+// 未扫态
+<ScanInput 
+  icon={<IconQrCode />} 
+  placeholder="请扫描/输入运单号"
+/>
+
+// 已扫态
+<ScanInput 
+  value="SF1234567890"
+  copyIcon={<IconCopyOutline />}
+  onCopy={handleCopy}
+/>
 ```
 
 完整图标列表见 `spec/icons/index.json`。
