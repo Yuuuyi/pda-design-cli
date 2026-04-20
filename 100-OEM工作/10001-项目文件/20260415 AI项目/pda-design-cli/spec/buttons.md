@@ -152,13 +152,85 @@
 
 ## 六、按钮尺寸变体
 
-| 尺寸 | 高度 | 字号 | 行高 | 内边距 | 使用场景 |
-|------|------|------|------|--------|----------|
-| **Large** | 64px | 22px | 32px | 16px 16px | 默认尺寸，移动端主要操作 |
-| **Medium** | 48px | 18px | 26px | 12px 16px | 表单、卡片内操作 |
-| **Small** | 36px | 14px | 20px | 8px 12px | 紧凑空间、标签按钮 |
+| 尺寸 | 高度 | 字号 | 行高 | 内边距 | 圆角 | 使用场景 |
+|------|------|------|------|--------|------|----------|
+| **Large** | 64px | 22px | 32px | 16px 16px | 8px | 默认尺寸，移动端主要操作 |
+| **Medium** | 46px | 16px | 22px | 12px 12px | 4px | 表单、卡片内操作 |
+| **Small** | 36px | 14px | 20px | 8px 12px | 4px | 紧凑空间、标签按钮 |
 
-> **说明：** Large 尺寸为默认，与扫描框高度一致。
+> **说明：** Large 尺寸为默认，与扫描框高度一致。Medium 与 Small 圆角为 4px（小于 Large 的 8px）。
+
+---
+
+## 六-2、中按钮 (Medium Button)
+
+中按钮与 Large 按钮颜色及状态一致，仅尺寸和字体不同。
+
+### 核心参数
+
+| 属性 | 值 | Token |
+|------|-----|-------|
+| 高度 | 46px | - |
+| 宽度（最小） | 56px | - |
+| 宽度（推荐） | 56px | - |
+| 宽度（最大） | 220px | - |
+| 内边距 | 12px（垂直） 12px（水平） | - |
+| 圆角 | 4px | Radius: 4px |
+| 字体 | PingFang SC | - |
+| 字号 | 16px | Typography: Bold |
+| 行高 | 22px | - |
+| 字重 | 600 (Bold) | - |
+
+### 紫色系 (Primary)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Default** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
+| **Pressed/Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **Disabled** | `#D4C2F4` | `#FFFFFF` | 无 | Pri-NO.2 / White |
+| **Outline Default** | 透明 | `#6445D1` | 1px solid #6445D1 | White / Pri-NO.6 |
+| **Outline Subtle** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 |
+
+### 红色系 (Functional Red)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Default** | `#FF3333` | `#FFFFFF` | 无 | Red-NO.5 / White |
+| **Pressed/Hover** | `#CC0000` | `#FFFFFF` | 无 | Red-NO.7 / White |
+| **Disabled** | `#FFB3B3` | `#FFFFFF` | 无 | Red-NO.2 / White |
+
+> **色值映射：** 原规范 #FB5251 → Red-NO.5；#CF3337 → Red-NO.7；#FDB2AC → Red-NO.2。
+
+### 黄色系 (Functional Yellow)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Default** | `#FFEB60` | `#333333` | 无 | Yellow-NO.5 / Black-NO.6 |
+| **Pressed/Hover** | `#F5B000` | `#333333` | 无 | Yellow-NO.7 / Black-NO.6 |
+| **Disabled** | `#FFF3B0` | `#999999` | 无 | Yellow-NO.3 / Black-NO.4 |
+
+> **色值映射：** 原规范 #FF9F02 → Yellow-NO.5；#D07A01 → Yellow-NO.7；#FFCC5E → Yellow-NO.4（取 #FFEE8A）。
+
+### 灰色系 (Neutral/Secondary)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Gray Solid Default** | `#52567B` | `#FFFFFF` | 无 | Grey-NO.6 / White |
+| **Gray Solid Pressed** | `#424242` | `#FFFFFF` | 无 | Grey-NO.7 / White |
+| **Gray Solid Disabled** | `#9E9E9E` | `#FFFFFF` | 无 | Grey-NO.5 / White |
+| **Gray Light Default** | `#EEEEEE` | `#333333` | 无 | Grey-NO.2 / Black-NO.6 |
+| **Gray Light Disabled** | `#EEEEEE` | `#A4ACCA` | 无 | Grey-NO.2 |
+
+> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2；#A4ACCA → 无标准色，建议用 #BDBDBD (Grey-NO.4)。
+
+### 幽灵按钮 (Ghost)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Ghost Primary Default** | 无 | `#6445D1` | 无 | Pri-NO.6 |
+| **Ghost Primary Pressed** | `#F1E7FF` | `#432CB0` | 无 | Pri-NO.1 / Pri-NO.7 |
+| **Ghost Gray Default** | 无 | `#52567B` | 无 | Grey-NO.6 |
+| **Ghost Gray Pressed** | `#F5F5F5` | `#424242` | 无 | Grey-NO.1 / Grey-NO.7 |
 
 ---
 
