@@ -154,11 +154,11 @@
 
 | 尺寸 | 高度 | 字号 | 行高 | 内边距 | 圆角 | 使用场景 |
 |------|------|------|------|--------|------|----------|
-| **Large** | 64px | 22px | 32px | 16px 16px | 8px | 默认尺寸，移动端主要操作 |
+| **Large** | 64px | 22px | 32px | 17px 16px | 8px | 默认尺寸，移动端主要操作 |
 | **Medium** | 46px | 16px | 22px | 12px 12px | 4px | 表单、卡片内操作 |
 | **Small** | 32px | 14px | 20px | 5px 8px | 4px | 紧凑空间、输入框内、行组件 |
 
-> **说明：** Large 尺寸为默认，与扫描框高度一致。Medium 与 Small 圆角为 4px（小于 Large 的 8px）。
+> **说明：** Large 尺寸为默认，与扫描框高度一致（行高30 + 垂直内边距17×2 = 64px）。Medium 与 Small 圆角为 4px（小于 Large 的 8px）。按钮组为 Large Button 的组合布局，可复用 Medium/Small 尺寸制作不同高度变体。
 
 ---
 
@@ -309,6 +309,92 @@
 
 ---
 
+## 六-4、按钮组 (Button Group)
+
+按钮组是 Large Button 的组合布局，用于在多个互斥选项中切换（如筛选、模式切换）。子项继承 Large Button 的核心参数，通过 `border-radius` 控制整体形状。
+
+### 核心参数
+
+| 属性 | 值 |
+|------|-----|
+| 容器圆角 | 8px |
+| 子项高度 | 64px（继承 Large Button） |
+| 子项内边距 | 17px（垂直） 16px（水平） |
+| 子项宽度 | min-width: 100px，max-width: 448px，flex: 1 均分 |
+| 字体 | PingFang SC / 22px / Line-height: 30px / font-weight: 600 (Bold) |
+| 子项间距 | gap: 1px（露出底层色作为分割线） |
+
+### 默认状态 (Default)
+
+| 子项状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|----------|--------|----------|------|-----------|
+| **未选中项** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.6 |
+| **选中项** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
+
+> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2（#EEEEEE）；#52567B 命中标准色，保留。
+
+### 交互状态
+
+| 子项状态 | Hover | Pressed | Disabled |
+|----------|-------|---------|----------|
+| **未选中项** | 背景加深至 `#E0E0E0` | 背景加深至 `#D0D0D0` | 背景 `#EEEEEE`，文字 `#BDBDBD`，cursor: not-allowed |
+| **选中项** | 背景加深至 `#4A33A8` | 背景加深至 `#432CB0`（同 Large Pressed） | 背景 `#D4C2F4`，文字 `#FFFFFF` |
+
+### 形态变体 (Layout Variants)
+
+#### 全包围式
+
+外层容器设置 `border-radius: 8px`，内部子项 `border-radius: 0`，首尾子项由容器统一控制圆角。
+
+```css
+.button-group {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden; /* 裁切首尾子项超出部分 */
+}
+.button-group__item {
+  border-radius: 0; /* 内部子项无需圆角 */
+  flex: 1;
+}
+```
+
+> ⚠️ **使用条件：** 仅适用于透明背景场景。若容器有背景色（卡片、弹窗），分割线会被容器背景遮盖，建议改用"左右拼接式"。
+
+#### 左右拼接式
+
+每个子项独立控制自身圆角，左侧项保留左圆角、右侧项保留右圆角，中间子项无圆角。
+
+```css
+.button-group__item {
+  border-radius: 0;
+  flex: 1;
+}
+.button-group__item:first-child {
+  border-radius: 8px 0 0 8px;
+}
+.button-group__item:last-child {
+  border-radius: 0 8px 8px 0;
+}
+/* 若有中间子项，保持 border-radius: 0 */
+```
+
+> **推荐优先使用左右拼接式**，子项独立性强，不依赖父容器背景条件。
+
+### 分割线逻辑
+
+按钮组内相邻子项通过 `gap: 1px` 露出底层色模拟分割线效果。底层色即**未选中项背景色**（#EEEEEE），视觉上与未选中项融为一体。
+
+> **设计说明：** 1px 是经过视觉验证的最小分割单位，不遮挡内容且边界清晰。若改用 2px 会显得粗糙，0px 则无法形成分割感。
+
+### Disabled 状态
+
+| 状态 | 背景色 | 文字颜色 | 说明 |
+|------|--------|----------|------|
+| **未选中 Disabled** | `#EEEEEE` | `#BDBDBD` | 不可交互，文字变淡 |
+| **选中 Disabled** | `#D4C2F4` | `#FFFFFF` | 同 Primary Disabled |
+
+---
+
 ## 七、交互规范
 
 ### 7.1 状态过渡
@@ -339,6 +425,7 @@ opacity: 0.6; /* 可选，部分场景 */
 | Primary Solid (Large) | 提交、确认、下一步 | 高 |
 | Primary Solid (Medium) | 表单内、卡片内操作 | 中 |
 | Primary Solid (Small) | 输入框内、行组件操作 | 低 |
+| **Button Group** | 互斥选项切换（筛选、模式切换） | 中 |
 | Primary Outline | 取消、返回、次要操作 | 中 |
 | Primary Outline Subtle | 辅助操作、弱引导 | 低 |
 | Red Solid | 删除、拒绝、紧急操作 | 高（谨慎使用） |
@@ -350,6 +437,8 @@ opacity: 0.6; /* 可选，部分场景 */
 | Ghost | 内联操作、链接式按钮 | 低 |
 
 > **Small 按钮特别说明：** 主要用于输入框（Input Field）内、行组件内等紧凑空间。与其他尺寸按钮颜色状态一致，仅尺寸不同。
+>
+> **按钮组特别说明：** 按钮组是 Large Button 的组合应用，可复用 Medium/Small 按钮尺寸制作不同高度变体。
 
 ---
 
