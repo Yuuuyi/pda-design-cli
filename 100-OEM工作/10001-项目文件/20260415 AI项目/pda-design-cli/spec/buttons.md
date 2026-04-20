@@ -156,7 +156,7 @@
 |------|------|------|------|--------|------|----------|
 | **Large** | 64px | 22px | 32px | 16px 16px | 8px | 默认尺寸，移动端主要操作 |
 | **Medium** | 46px | 16px | 22px | 12px 12px | 4px | 表单、卡片内操作 |
-| **Small** | 36px | 14px | 20px | 8px 12px | 4px | 紧凑空间、标签按钮 |
+| **Small** | 32px | 14px | 20px | 5px 8px | 4px | 紧凑空间、输入框内、行组件 |
 
 > **说明：** Large 尺寸为默认，与扫描框高度一致。Medium 与 Small 圆角为 4px（小于 Large 的 8px）。
 
@@ -190,6 +190,7 @@
 | **Disabled** | `#D4C2F4` | `#FFFFFF` | 无 | Pri-NO.2 / White |
 | **Outline Default** | 透明 | `#6445D1` | 1px solid #6445D1 | White / Pri-NO.6 |
 | **Outline Subtle** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 |
+| **Outline Disabled** | `#FFFFFF` | `#D4C2F4` | 1px solid #D4C2F4 | White / Pri-NO.2 |
 
 ### 红色系 (Functional Red)
 
@@ -234,6 +235,80 @@
 
 ---
 
+## 六-3、小按钮 (Small Button)
+
+小按钮用于输入框内、行组件等紧凑空间。
+
+### 核心参数
+
+| 属性 | 值 |
+|------|-----|
+| 高度 | 32px |
+| 宽度（最小） | 48px |
+| 宽度（推荐） | 48px |
+| 宽度（最大） | 144px |
+| 内边距 | 5px（垂直） 8px（水平） |
+| 圆角 | 4px |
+| 字体 | PingFang SC |
+| 字号 | 14px |
+| 行高 | 20px |
+| 字重 | 600 (Bold) |
+
+### 紫色系 (Primary)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Default** | `#6445D1` | `#FFFFFF` | 无 | Pri-NO.6 / White |
+| **Pressed/Hover** | `#432CB0` | `#FFFFFF` | 无 | Pri-NO.7 / White |
+| **Disabled** | `#D4C2F4` | `#FFFFFF` | 无 | Pri-NO.2 / White |
+| **Outline Default** | `#FFFFFF` | `#6445D1` | 1px solid #6445D1 | White / Pri-NO.6 |
+| **Outline Subtle** | `#F1E7FF` | `#9C80E3` | 1px solid #6445D1 | Pri-NO.1 / Pri-NO.4 |
+| **Outline Disabled** | `#FFFFFF` | `#D4C2F4` | 1px solid #D4C2F4 | White / Pri-NO.2 |
+
+### 红色系 (Functional Red)
+
+| 状态 | 背景色 | 文字颜色 | Token 映射 |
+|------|--------|----------|-----------|
+| **Default** | `#FF3333` | `#FFFFFF` | Red-NO.5 / White |
+| **Pressed/Hover** | `#CC0000` | `#FFFFFF` | Red-NO.7 / White |
+| **Disabled** | `#FFB3B3` | `#FFFFFF` | Red-NO.2 / White |
+
+> **色值映射：** 原规范 #FB5251 → Red-NO.5；#CF3337 → Red-NO.7；#FFD0C9 → Red-NO.2；#FD948D → 无标准色，建议用 #FFB3B3。
+
+### 黄色系 (Functional Yellow)
+
+| 状态 | 背景色 | 文字颜色 | Token 映射 |
+|------|--------|----------|-----------|
+| **Default** | `#FFEB60` | `#333333` | Yellow-NO.5 / Black-NO.6 |
+| **Pressed/Hover** | `#F5B000` | `#333333` | Yellow-NO.7 / Black-NO.6 |
+| **Disabled** | `#FFF3B0` | `#999999` | Yellow-NO.3 / Black-NO.4 |
+
+> **色值映射：** 原规范 #FF9F02 → Yellow-NO.5；#D07A01 → Yellow-NO.7；#FFEEBA → Yellow-NO.3。
+
+### 灰色系 (Neutral/Secondary)
+
+| 状态 | 背景色 | 文字颜色 | 边框 | Token 映射 |
+|------|--------|----------|------|-----------|
+| **Gray Solid Default** | `#52567B` | `#FFFFFF` | 无 | Grey-NO.6 / White |
+| **Gray Solid Subtle** | `#383B6F` | `#FFFFFF` | 无 | 深色变体（无标准色） |
+| **Gray Solid Disabled** | `#9E9E9E` | `#FFFFFF` | 无 | Grey-NO.5 / White |
+| **Gray Light Default** | `#EEEEEE` | `#52567B` | 无 | Grey-NO.2 / Grey-NO.6 |
+| **Gray Light Disabled** | `#EEEEEE` | `#A4ACCA` | 无 | Grey-NO.2 |
+| **Gray Outline Default** | `#FFFFFF` | `#52567B` | 1px solid #52567B | White / Grey-NO.6 |
+
+> **色值映射：** 原规范 #F3F4F6 → Grey-NO.2；#A4ACCA → 无标准色，建议用 #BDBDBD (Grey-NO.4)。
+
+### 幽灵按钮 (Ghost)
+
+| 状态 | 背景色 | 文字颜色 | Token 映射 |
+|------|--------|----------|-----------|
+| **Ghost Primary Default** | 无 | `#6445D1` | Pri-NO.6 |
+| **Ghost Primary Pressed** | `#F1E7FF` | `#432CB0` | Pri-NO.1 / Pri-NO.7 |
+| **Ghost Gray Default** | 无 | `#52567B` | Grey-NO.6 |
+| **Ghost Gray Pressed** | `#F5F5F5` | `#424242` | Grey-NO.1 / Grey-NO.7 |
+
+---
+
 ## 七、交互规范
 
 ### 7.1 状态过渡
@@ -261,15 +336,20 @@ opacity: 0.6; /* 可选，部分场景 */
 
 | 变体 | 使用场景 | 优先级 |
 |------|----------|--------|
-| Primary Solid | 提交、确认、下一步 | 高 |
+| Primary Solid (Large) | 提交、确认、下一步 | 高 |
+| Primary Solid (Medium) | 表单内、卡片内操作 | 中 |
+| Primary Solid (Small) | 输入框内、行组件操作 | 低 |
 | Primary Outline | 取消、返回、次要操作 | 中 |
 | Primary Outline Subtle | 辅助操作、弱引导 | 低 |
 | Red Solid | 删除、拒绝、紧急操作 | 高（谨慎使用） |
 | Yellow Solid | 警告、注意、中性提示 | 中 |
 | Gray Solid | 次要操作、辅助按钮 | 低 |
+| Gray Solid Subtle (Small) | 强调的次级操作 | 低 |
 | Gray Light | 取消、返回 | 低 |
 | Gray Outline | 辅助操作、弱次要 | 低 |
 | Ghost | 内联操作、链接式按钮 | 低 |
+
+> **Small 按钮特别说明：** 主要用于输入框（Input Field）内、行组件内等紧凑空间。与其他尺寸按钮颜色状态一致，仅尺寸不同。
 
 ---
 
