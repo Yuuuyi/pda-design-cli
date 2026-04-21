@@ -192,6 +192,18 @@
       ],
       "note": "轻量级状态标记和分类标签，支持 6 种颜色变体和 2 种尺寸"
     },
+    "waybill-display": {
+      "name": "运单号展示组件 (WaybillDisplay)",
+      "file": "waybill-display.md",
+      "category": "data-display",
+      "tags": [
+        "waybill",
+        "waybillNo",
+        "运单号",
+        "展示"
+      ],
+      "note": "运单号统一展示组件，支持前缀、主体、标签和查件按钮"
+    },
     "popover": {
       "name": "气泡卡片 (Popover)",
       "file": "popover.md",
