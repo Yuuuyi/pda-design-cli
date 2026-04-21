@@ -27,7 +27,53 @@
 | ✅ 从 index.json 选取 | `spec/icons/index.json` 包含全部 499 个图标 |
 | ✅ 使用 SVG 文件 | `spec/icons/icon_[name].svg` |
 | ✅ 使用 outline 变体 | `spec/icons/icon_[name]_outline.svg` |
+| ✅ 使用 filled 变体 | `spec/icons/icon_[name].svg` (无后缀为填充版) |
 | ✅ 按分类查找 | action/arrow/business/communication 等 |
+
+---
+
+### 3. 图标变体命名规则（重要）
+
+系统图标分为两类变体：
+
+| 变体类型 | 命名格式 | 示例 | 说明 |
+|----------|----------|------|------|
+| **填充版 (Filled)** | `icon_[name].svg` | `icon_search.svg` | 实心填充，默认使用 |
+| **线性版 (Outline)** | `icon_[name]_outline.svg` | `icon_search_outline.svg` | 线条轮廓 |
+
+**规则：**
+
+```
+1. 同名图标，filled 和 outline 成对出现
+   ✅ icon_search.svg + icon_search_outline.svg
+   ❌ icon_search.svg + icon_line_search.svg
+
+2. 禁止同名不同样式混用
+   ❌ 同时使用 icon_box.svg 和 icon_box_outline.svg 表示不同含义
+
+3. 变体选择原则
+   - 填充版：图标较大、需要强调时使用
+   - 线性版：图标较小、需要轻量感时使用
+   - 同一组件内保持统一
+
+4. 业务场景适配
+   - 列表项图标：推荐线性版 (outline)
+   - 状态指示图标：推荐填充版
+   - 导航栏图标：根据整体视觉密度选择
+```
+
+**当前图标变体对照表（部分）：**
+
+| 功能 | 填充版 | 线性版 |
+|------|--------|--------|
+| 添加 | `icon_add.svg` | `icon_add_outline.svg` |
+| 关闭 | `icon_close.svg` | `icon_close_outline.svg` |
+| 删除 | `icon_delete.svg` | `icon_delete_outline.svg` |
+| 搜索 | `icon_search.svg` | `icon_search_outline.svg` |
+| 箭头 | `icon_arrow_right.svg` | `icon_arrow_right_outline.svg` |
+| 更多 | `icon_more.svg` | `icon_more_outline.svg` |
+| 首页 | `icon_home.svg` | `icon_home_outline.svg` |
+| 我的 | `icon_me.svg` | `icon_me_outline.svg` |
 
 ---
 

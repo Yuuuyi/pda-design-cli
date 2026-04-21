@@ -39,6 +39,18 @@
         "悬浮按钮"
       ]
     },
+    "navbar": {
+      "name": "导航栏组件族 (NavBar)",
+      "file": "navbar.md",
+      "category": "navigation",
+      "tags": [
+        "navbar",
+        "nav-bar",
+        "导航栏",
+        "顶部导航"
+      ],
+      "note": "导航栏组件族入口文档，引用 navbar-default/tabs/members/search 四个变体"
+    },
     "navbar-default": {
       "name": "导航栏默认 (Navbar Default)",
       "file": "navbar-default.md",
