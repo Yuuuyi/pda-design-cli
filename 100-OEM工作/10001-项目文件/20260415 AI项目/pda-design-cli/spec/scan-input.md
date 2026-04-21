@@ -4,6 +4,32 @@
 
 ---
 
+## 何时使用
+
+**用这个组件，当：**
+- 场景涉及扫码（运单号、托盘码、包裹码等自动识别）
+- 用户需要通过摄像头扫描条形码/二维码
+
+**不要用这个组件，当：**
+- 纯手动输入，无扫码需求 → 用 InputField
+- 需要输入数字、金额、备注等文字 → 用 InputField
+- 需要选择日期、人名等 → 用 Select 或 Dropdown
+
+**ScanInput vs InputField 决策：**
+
+```
+需要扫码吗？
+├─ 是 → ScanInput（自动调起相机，支持条形码/二维码识别）
+└─ 否 → InputField（纯手动输入）
+
+运单/托盘场景：
+├─ 扫描运单号 → ScanInput (scene: scan-waybill)
+├─ 扫描托盘 → ScanInput (scene: scan-pallet)
+└─ 手动填写运单号 → InputField
+```
+
+---
+
 ## ⚠️ 强制约束
 
 | 约束 | 说明 |

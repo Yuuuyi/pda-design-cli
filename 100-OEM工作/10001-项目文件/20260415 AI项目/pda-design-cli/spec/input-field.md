@@ -1,5 +1,33 @@
 # InputField (输入框)
 
+---
+
+## 何时使用
+
+**用这个组件，当：**
+- 用户需要手动输入文字、数字、备注等（不涉及扫码）
+
+**不要用这个组件，当：**
+- 需要扫码识别 → 用 ScanInput
+- 只是展示信息 → 用 Text 或 Tag
+- 需要选择而非输入 → 用 Select / Dropdown / DatePicker
+
+**InputField vs ScanInput 决策：**
+
+```
+需要扫码吗？
+├─ 是 → ScanInput
+└─ 否 → InputField
+
+输入内容是什么？
+├─ 运单号（可扫码）→ ScanInput
+├─ 纯文字备注 → InputField
+├─ 数字金额 → InputField
+└─ 日期选择 → DatePicker / Dropdown
+```
+
+---
+
 ## 1. 组件概览
 
 - **类型：** 基础表单组件
