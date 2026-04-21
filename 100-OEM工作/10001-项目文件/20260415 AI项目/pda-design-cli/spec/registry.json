@@ -254,6 +254,20 @@
         "tooltip"
       ],
       "note": "补充说明和提示气泡，支持上下箭头方向"
+    },
+    "checklist": {
+      "name": "可勾选列表 (Checklist)",
+      "file": "checklist.md",
+      "category": "form",
+      "tags": [
+        "checklist",
+        "checkbox",
+        "checkable",
+        "list",
+        "勾选",
+        "多选"
+      ],
+      "note": "在一组列表项中进行单选或多选操作，与 ListItem 的区别是无右侧箭头插槽"
     }
   },
   "tokens": {
