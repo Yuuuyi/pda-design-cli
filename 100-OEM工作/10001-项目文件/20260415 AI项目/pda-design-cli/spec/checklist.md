@@ -50,14 +50,17 @@
 
 ```
 ┌────────────────────────────────────────────────────────────┐
-│  [Checkbox Icon]  [主标题]                    [副标题]    │
-│    28×28            20px Bold #333333          16px Regular │
-│                     ←── 4px ──→                #9E9E9E     │
+│  [主标题]   [副标题]                       [✓ 紫色徽章]    │
+│  20px Bold  16px Regular                 ←─ 23×23 ──→   │
+│  #333333    #9E9E9E                       右上方定点        │
+│  ←── 4px ──→                                            │
 │                                                            │
-│  容器: 480×70px, padding 16px, gap 16px                    │
-│  分割线: #F5F5F5 (1px, 底部)                               │
+│  容器: 480×70px, padding 16px, gap 16px                   │
+│  分割线: #F5F5F5 (1px, 底部)                              │
 └────────────────────────────────────────────────────────────┘
 ```
+
+> **图标位置说明：** 复选框图标固定在每行右上角（容器右上角定点），不在左侧。未选中为空框图标，已选中为紫色徽章图标。
 
 ---
 
@@ -75,27 +78,27 @@
 | Flex 交叉轴 | `center` | 垂直居中 |
 | 分割线 | 1px `#F5F5F5` | Black NO.2 |
 
-> **与 ListItem 的区别：** Checklist 无右侧箭头插槽，高度 70px vs ListItem 68px，间距 4px vs 8px（文本与副标题）。
-
-### 2.2 左侧内容区
-
-| 属性 | 值 |
-|------|-----|
-| 布局 | Flex Row |
-| 元素间距 | 16px (图标与文本) |
-| 对齐 | 垂直居中 |
-
-### 2.3 文本容器
+### 2.2 文本容器
 
 | 属性 | 值 |
 |------|-----|
 | 布局 | Flex Column |
 | 元素间距 | 4px (主标题与副标题) |
 | 对齐 | 靠左 |
+| 位置 | 居左 |
 
-### 2.4 右侧（无插槽）
+### 2.3 复选框图标
 
-> Checklist 右侧无操作区，与 ListItem 的核心区别之一。
+| 属性 | 值 | 说明 |
+|------|-----|------|
+| 图标文件 | `icon_checkbox_checked.svg` | 已选中：紫色徽章右上角固定 |
+| 未选中图标 | 路径待定（空框） | 系统图标库暂缺，需补充 |
+| 图标尺寸 | 23×23px | 与 SVG 原始尺寸一致 |
+| 位置 | 容器右上角顶点对齐 | `position: absolute; top: 16px; right: 16px;` |
+| 已选中背景色 | `#6445D1` | Functional Purple |
+| 已选中图标色 | `#FFFFFF` | 白色勾号 |
+
+> **布局说明：** 文本区使用 Flex Column 靠左排列，图标使用 `position: absolute` 固定在右上角。与 ListItem 布局完全相反——ListItem 文本居左、图标在右侧；Checklist 文本在左、图标在右上角。
 
 ---
 
@@ -131,18 +134,30 @@
 
 | 状态 | 标题颜色 | 副标题颜色 | 复选框图标 | 交互 |
 |------|---------|-----------|-----------|------|
-| **未选中** | `#333333` Black NO.6 | `#9E9E9E` Grey NO.5 | `icon_check_outline.svg` (空框) | 可点击 |
-| **已选中** | `#333333` Black NO.6 | `#9E9E9E` Grey NO.5 | `icon_check.svg` (勾选) | 可点击 |
-| **未选中-禁用** | `#9E9E9E` Grey NO.5 | `#9E9E9E` Grey NO.5 | `icon_check_outline.svg` (置灰) | 不可点击 |
-| **已选中-禁用** | `#9E9E9E` Grey NO.5 | `#9E9E9E` Grey NO.5 | `icon_check.svg` (置灰) | 不可点击 |
+| **未选中** | `#333333` Black NO.6 | `#9E9E9E` Grey NO.5 | 空框（待补充） | 可点击 |
+| **已选中** | `#333333` Black NO.6 | `#9E9E9E` Grey NO.5 | `icon_checkbox_checked.svg` | 可点击 |
+| **未选中-禁用** | `#9E9E9E` Grey NO.5 | `#9E9E9E` Grey NO.5 | 空框置灰 | 不可点击 |
+| **已选中-禁用** | `#9E9E9E` Grey NO.5 | `#9E9E9E` Grey NO.5 | `icon_checkbox_checked.svg` opacity: 0.4 | 不可点击 |
 
-> ⚠️ **图标补充说明：** 当前系统图标库中暂无专用 checkbox/checkbox-outline 图标。建议后续补充以下两个图标以完善 Checklist 组件：
-> - `icon_checkbox_outline.svg` — 空复选框（未选中）
-> - `icon_checkbox.svg` — 带勾复选框（已选中）
->
-> 过渡方案可使用 `icon_check_outline.svg`（线性勾号）和 `icon_check.svg`（实心勾号），但视觉语义不够准确。
+### 4.2 已选中图标规范
 
-### 4.2 状态切换动画
+图标文件：`spec/checklist-icons/icon_checkbox_checked.svg`
+
+| 属性 | 值 |
+|------|-----|
+| 尺寸 | 23×23px |
+| 背景色 | `#6445D1` (Functional Purple) |
+| 勾号颜色 | `#FFFFFF` |
+| 形状 | 右上角切角矩形，带底部圆角 |
+| 位置 | 固定于每行右上角 (`top: 16px; right: 16px`) |
+| 文件路径 | `spec/checklist-icons/icon_checkbox_checked.svg` |
+
+### 4.3 未选中图标（待补充）
+
+> ⚠️ 系统图标库中暂无专用空复选框（空框）图标，需补充以下图标：
+> - `icon_checkbox_outline.svg` — 23×23px 白色空框，用于未选中状态
+
+### 4.4 状态切换动画
 
 | 属性 | 值 |
 |------|-----|
@@ -219,23 +234,23 @@ const ChecklistItem: React.FC<{
       role="listitem"
       onClick={!disabled ? handleClick : undefined}
     >
-      {/* 复选框图标 */}
-      <img
-        src={
-          checked
-            ? './icons/icon_check.svg'
-            : './icons/icon_check_outline.svg'
-        }
-        alt={checked ? '已选中' : '未选中'}
-        className={`checklist-icon ${checked ? 'is-checked' : ''}`}
-        aria-hidden="true"
-      />
-
       {/* 文本内容 */}
       <div className="checklist-text">
         <span className="checklist-title">{title}</span>
         {subtitle && <p className="checklist-subtitle">{subtitle}</p>}
       </div>
+
+      {/* 复选框图标 — 固定右上角 */}
+      <img
+        src={
+          checked
+            ? './icons/icon_checkbox_checked.svg'
+            : './icons/icon_checkbox_outline.svg'
+        }
+        alt={checked ? '已选中' : '未选中'}
+        className={`checklist-icon ${checked ? 'is-checked' : ''}`}
+        aria-hidden="true"
+      />
     </div>
   );
 };
@@ -263,7 +278,8 @@ export default Checklist;
 .checklist-item {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  position: relative; /* 为右上角图标建立定位上下文 */
   height: 70px;
   min-height: 70px;
   padding: 8px 16px;
@@ -291,12 +307,8 @@ export default Checklist;
   color: #9E9E9E; /* Grey NO.5 */
 }
 
-/* 图标 */
-.checklist-icon {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  transition: opacity 200ms ease;
+.checklist-item.is-disabled .checklist-icon.is-checked {
+  opacity: 0.4; /* 已选中禁用态：图标 40% 透明度 */
 }
 
 /* 文本 */
@@ -305,6 +317,17 @@ export default Checklist;
   flex-direction: column;
   gap: 4px;
   flex: 1;
+  padding-right: 36px; /* 为右上角图标留出空间 */
+}
+
+/* 图标 — 固定于右上角 */
+.checklist-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 23px;
+  height: 23px;
+  transition: opacity 200ms ease;
 }
 
 .checklist-title {
