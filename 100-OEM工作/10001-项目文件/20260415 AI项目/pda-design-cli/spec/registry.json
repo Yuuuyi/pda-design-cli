@@ -268,6 +268,16 @@
         "多选"
       ],
       "note": "在一组列表项中进行单选或多选操作，与 ListItem 的区别是无右侧箭头插槽"
+    },
+    "search-bar": {
+      "name": "SearchBar",
+      "file": "search-bar.md",
+      "category": "input",
+      "tags": [
+        "search",
+        "input",
+        "scan"
+      ]
     }
   },
   "tokens": {
