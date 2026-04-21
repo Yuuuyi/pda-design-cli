@@ -269,6 +269,22 @@
       ],
       "note": "在一组列表项中进行单选或多选操作，与 ListItem 的区别是无右侧箭头插槽"
     },
+    "stepper": {
+      "name": "步进器 (Stepper)",
+      "file": "stepper.md",
+      "category": "data-entry",
+      "tags": [
+        "stepper",
+        "counter",
+        "increment",
+        "decrement",
+        "quantity",
+        "步进器",
+        "计数器",
+        "数量"
+      ],
+      "note": "数量增减控件，支持激活态和禁用态（数值为0时减号置灰），图标调用 icon 包"
+    },
     "search-bar": {
       "name": "SearchBar",
       "file": "search-bar.md",
