@@ -217,6 +217,18 @@
       ],
       "note": "空状态引导组件，支持10种业务缺省插画和标题、说明、操作按钮"
     },
+    "list-item": {
+      "name": "列表项组件 (ListItem)",
+      "file": "list-item.md",
+      "category": "data-display",
+      "tags": [
+        "list",
+        "list-item",
+        "列表",
+        "列表项"
+      ],
+      "note": "列表项容器组件，左侧图标+双行文本，右侧插槽支持Tag/Switch/Button"
+    },
     "popover": {
       "name": "气泡卡片 (Popover)",
       "file": "popover.md",
