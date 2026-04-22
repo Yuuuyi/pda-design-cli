@@ -1,5 +1,125 @@
 # InputField (输入框)
 
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Use When/Avoid When、Interaction Flow、AI Notes、Code Mapping
+
+---
+
+## Purpose
+
+InputField 是 PDA 设计系统中的基础表单输入组件，用于承载用户的手动文本/数字输入。它将"空态（Empty）"与"填充态（Filled）"统一为单一组件，通过 `value` 属性自动切换视觉表现，解决了以往两种状态需要两套组件造成的代码重复问题。在仓储、物流等 PDA 业务场景中，运单号、备注、金额、手机号等字段都需要此类输入能力。
+
+## Use When / Avoid When
+
+| 使用场景 | 推荐使用 InputField | 避免使用 |
+|---------|:-:|:-:|
+| 用户手动输入文字或数字 | ✅ | |
+| 备注信息、金额录入 | ✅ | |
+| 需要扫码识别 | | ❌ → ScanInput |
+| 仅展示只读信息 | | ❌ → Text / Tag |
+| 需要选择而非输入 | | ❌ → Select / Dropdown / DatePicker |
+
+## Interaction Flow
+
+```
+          ┌──────────┐
+          │  Default  │ ← 组件挂载，value 为空
+          │  (Empty)  │
+          └────┬─────┘
+               │ 用户输入内容 (value 非空)
+               ▼
+          ┌──────────┐
+          │  Filled   │ ──用户清空──→ Default (Empty)
+          │          │
+          └────┬─────┘
+               │ disabled=true
+               ▼
+          ┌──────────┐
+          │ Disabled  │ ──disabled=false──→ 恢复至前一状态
+          └──────────┘
+```
+
+- **Default (Empty) → Filled**：用户在输入区键入内容，`value` 变为非空
+- **Filled → Default (Empty)**：用户清空内容，`value` 恢复为空
+- **Any State → Disabled**：设置 `disabled=true`，禁用所有交互
+- **Disabled → Any State**：移除 `disabled` 属性，恢复交互能力
+
+## Design Tokens
+
+### 颜色
+
+| 状态 | UI 元素 | Token | 色值 |
+|------|---------|-------|------|
+| Default / Empty | 背景 | Color-Functional-Black NO.1 | #FFFFFF |
+| Default / Empty | 占位符文字 | Color-Functional-Grey NO.5 | #9E9E9E |
+| Default / Empty | 分割线 | Color-Functional-Grey NO.2 | #EEEEEE |
+| Filled | 输入文字 | Color-Functional-Black NO.6 | #333333 |
+| All States | 标题文字 | Color-Functional-Black NO.6 | #333333 |
+| Disabled | 图标 | Color-Functional-Grey NO.5 | #9E9E9E |
+
+### 排版
+
+| 元素 | 字重 | 字号 | 行高 |
+|------|------|------|------|
+| 标题 (Label) | Heavy / Bold | 20px | 28px |
+| 输入内容 / 占位符 | Regular | 20px | 28px |
+
+### 布局
+
+| 属性 | 数值 |
+|------|------|
+| 组件总宽 | 480px |
+| 组件总高 | 70px |
+| 容器内边距 | 16px |
+| 标题与输入区间距 | 16px |
+| 标题宽度 | 120px（固定，不伸缩） |
+| 插槽最大宽度 | 120px |
+| 插槽与内容间距 | 8px |
+
+## Props Contract
+
+```typescript
+interface InputFieldProps {
+  /** 左侧标题 */
+  label: string;
+  /** 已输入的文本值（Filled 状态） */
+  value?: string;
+  /** 占位符文本（Empty 状态），默认 "请输入" */
+  placeholder?: string;
+  /** 是否禁用 */
+  disabled?: boolean;
+  /** 右侧插槽：图标 / 按钮 / 下拉 / 自定义组件 */
+  rightSlot?: React.ReactNode;
+  /** @deprecated 请使用 rightSlot */
+  iconSrc?: string;
+}
+```
+
+## Code Mapping
+
+| 平台 | 路径 |
+|------|------|
+| Spec | `pda-design-cli/spec/input-field.md` |
+| Icons | `pda-design-cli/spec/icons/` |
+
+> ⚠️ 组件实现代码路径待补充。
+
+## AI Notes
+
+- **为什么将 Empty 和 Filled 合并为一个组件？** 因为两种状态仅在文字颜色和内容来源上有差异，拆分会导致大量重复代码。合并后通过 `value` 判断即可自动切换，组件逻辑更简洁。
+- **为什么采用右插槽（rightSlot）而非固定图标？** 业务场景多变（搜索、清除、跳转、验证码按钮、下拉选择等），固定图标无法覆盖所有需求。插槽模式提供了最大灵活性，开发者可按需传入任意组件。
+- **为什么标题固定 120px？** 标题长度在业务中较为稳定（2-5 个汉字），固定宽度确保多行表单中标题对齐整齐，视觉更统一。
+- **为什么占位符使用 Grey NO.5（#9E9E9E）？** 需要保证在白色背景上仍然可读。NO.5 在可读性与层级弱化之间取得了平衡，比更浅的灰色更容易识别。
+- **为什么废弃 iconSrc？** iconSrc 只能传入单个图片路径，无法满足按钮、下拉等复杂插槽需求。rightSlot 作为通用方案完全覆盖了 iconSrc 的能力。
+
+## Variants Overview
+
+| 变体 | 背景色 | 文字色 | 分割线 | 插槽图标 | 交互 |
+|------|--------|--------|--------|---------|------|
+| Empty（默认） | #FFFFFF | #9E9E9E | #EEEEEE | 按需 | 可输入 |
+| Filled（已输入） | #FFFFFF | #333333 | #EEEEEE | 按需 | 可编辑 |
+| Disabled（禁用） | #FFFFFF | — | #EEEEEE | #9E9E9E | 不可交互 |
+
 ---
 
 ## 何时使用
@@ -308,3 +428,13 @@ interface InputFieldProps {
 通过将两种状态合并为一个组件，避免了代码重复。组件内部通过判断 `value` 是否存在来决定渲染"占位符"（弱色）还是"实际值"（主色），从而完美适配设计系统中的 Color-Functional-Black 与 Color-Functional-Grey 层级。
 
 **v1.2.6 更新**：新增 `rightSlot` 属性，支持图标、按钮、下拉等灵活配置，废弃 `iconSrc` 属性。
+
+---
+
+## Changelog
+
+### 2026-04-22
+
+- 升级至 v1.1.0 规范格式
+- 新增：Purpose、Use When/Avoid When、Interaction Flow、Design Tokens 概览、Props Contract、Code Mapping、AI Notes、Variants Overview
+- 原有全部内容完整保留

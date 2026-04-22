@@ -1,6 +1,202 @@
 # 运单号展示组件 (WaybillDisplay)
 
-运单号展示组件是一个全局通用的基础组件，用于在系统中统一展示运单号及相关操作。该组件支持灵活的插槽配置，可根据业务场景动态添加前缀（如多选、复制按钮）或后缀（如标签信息）。
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Use When/Avoid When、Interaction Flow、AI Notes、Code Mapping
+
+---
+
+## Purpose
+
+运单号展示组件（WaybillDisplay）是系统中统一展示单条运单信息的全局基础组件，解决"运单号如何规范呈现"的问题。
+
+**解决的问题：**
+
+- 统一运单号、前缀、收件人性别标签、查件按钮等多元素在同一行内的排版规范
+- 为业务标签（易损高赔、必装票等）提供扩展插槽，避免重复造轮子
+- 支持左侧操作区（多选框/复制按钮）和右侧业务标签区的灵活组合
+
+**为什么需要这个组件：**
+
+- 运单列表是 PDA 核心业务场景，展示格式不统一会导致界面杂乱
+- 不同业务线（揽件/派件/签收）对运单行的操作按钮和标签需求不同，需要插槽扩展
+- 运单号前缀（如 `KY4000327`）和主体（如 `225662`）在视觉上有层级区分，提升可读性
+
+## Use When / Avoid When
+
+| 场景 | 推荐使用 WaybillDisplay | 推荐替代方案 |
+|------|:---:|---|
+| 在列表或详情页中展示单条运单（运单号 + 姓名 + 性别标签） | ✅ | |
+| 需要在运单行中集成查件按钮或自定义操作 | ✅ | |
+| 展示包含业务标签（易损高赔/必装票等）的运单行 | ✅ | |
+| 需要在运单行左侧放置多选框或复制按钮 | ✅ | |
+| 单纯展示状态标签（"已签收"/"待取件"） | ❌ | 使用 Tag |
+| 需要展示多条运单组成的详情卡片 | ❌ | 使用 Card 包装多个 WaybillDisplay |
+| 仅为省略超长文本 | ❌ | 使用 Text + overflow |
+| 展示图标+标题+副标题+箭头构成的通用列表行 | ❌ | 使用 ListItem |
+
+**决策树：**
+
+```
+展示内容是什么？
+├─ 单一运单号行（含姓名/性别/运单号）→ WaybillDisplay ✅
+├─ 状态标签（"已签收"/"待取件"）→ Tag ❌
+├─ 通用列表行（图标+标题+副标题+箭头）→ ListItem ❌
+└─ 运单详情信息卡 → Card + WaybillDisplay ❌
+```
+
+## Interaction Flow
+
+```
+[页面加载 / 组件挂载]
+        │
+        ▼
+  ┌───────────────────────────┐
+  │     INIT / RENDERED       │ ← 组件渲染：前缀 → 运单号 → 查件按钮 → 后缀
+  └──────────────┬────────────┘
+                │
+    [运单号前缀 + 主体] ── 静态展示，无交互
+                │
+    [性别标签] ── 静态展示，无交互
+                │
+    [查件按钮] ─ 可交互
+                │
+        ┌───────┴───────┐
+        │               │
+   [点击查件按钮]   [hover 查件按钮]
+        │               │
+        ▼               ▼
+  ┌─────────────┐  ┌─────────────┐
+  │ 发出 click-  │  │ 视觉反馈     │
+  │ search 事件  │  │ (下划线/色变)│
+  └──────┬──────┘  └─────────────┘
+         │
+    回调上层 handler
+    (跳转查件页面/API调用)
+         │
+         ▼
+    ◄─── 等待下次交互 ───►
+
+--- Prefix / Suffix 插槽 ---
+
+  ┌───────────────────────────┐
+  │ [Prefix] [前缀] [主体]    [Suffix]
+  └───────────────────────────┘
+       │                 │
+  插入 Checkbox         插入 Tag 列表
+  插入 Copy 按钮         插入业务标签
+```
+
+## Design Tokens
+
+### 容器（Container）
+
+| Token | 值 | 说明 |
+|-------|-----|------|
+| `--waybill-height` | `32px` | 容器高度，对齐 Tag Small |
+| `--waybill-max-width` | `448px` | 最大宽度，与按钮系统一致 |
+| `--waybill-gap-root` | `8px` | 根容器内间距 |
+| `--waybill-gap-children` | `4px` | 子元素间距 |
+| `--waybill-align-main` | `flex-start` | 主轴左对齐 |
+| `--waybill-align-cross` | `center` | 交叉轴垂直居中 |
+
+### 性别标签（Gender Tag）
+
+| Token | 值 | 说明 |
+|-------|-----|------|
+| `--waybill-tag-padding` | `2px 8px` | 对齐 Tag Small 尺寸 |
+| `--waybill-tag-radius` | `4px` | 对齐 Tag Small 尺寸 |
+| `--waybill-tag-bg` | `Yellow-NO.6` `#FFD933` | 默认黄色背景 |
+| `--waybill-tag-color` | `White` `#FFFFFF` | 白色文字 |
+
+### 查件按钮（Search Button）
+
+| Token | 值 | 说明 |
+|-------|-----|------|
+| `--waybill-btn-min-width` | `40px` | 最小宽度 |
+| `--waybill-btn-max-width` | `120px` | 最大宽度 |
+| `--waybill-btn-padding` | `4px 8px` | 内边距 |
+| `--waybill-btn-radius` | `4px` | 圆角 |
+| `--waybill-btn-border` | `none` | 纯文字按钮无边框 |
+| `--waybill-btn-color` | `Primary-NO.6` `#6445D1` | 主色调 |
+| `--waybill-btn-font-size` | `18px` | 字号 |
+| `--waybill-btn-font-weight` | `600` | Bold |
+| `--waybill-btn-line-height` | `25px` | 行高 |
+
+### 文字排版
+
+| Token | 值 | 说明 |
+|-------|-----|------|
+| `--waybill-prefix-size` | `18px` | 前缀字号 |
+| `--waybill-prefix-weight` | `400` | Regular |
+| `--waybill-prefix-color` | `Grey-NO.4` `#BDBDBD` | 前缀色 |
+| `--waybill-body-size` | `18px` | 主体字号 |
+| `--waybill-body-weight` | `600` | Bold |
+| `--waybill-body-color` | `Black-NO.6` `#333333` | 主体色 |
+| `--waybill-line-height` | `25px` | 行高 |
+
+## Props Contract
+
+```typescript
+interface WaybillDisplayProps {
+  /** 运单号主体（如 `225662`） */
+  waybillNo: string;
+  /** 运单号前缀（如 `KY4000327`） */
+  prefixCode?: string;
+  /** 性别/类型标签配置 */
+  genderTag?: {
+    /** 标签文本（如 `母`） */
+    text: string;
+    /** 背景色，默认为 Yellow-NO.6 `#FFD933` */
+    bgColor?: string;
+  };
+  /** 是否显示查件按钮，默认 true */
+  showSearchBtn?: boolean;
+  /** 查件按钮文案，默认 `查件` */
+  searchBtnText?: string;
+  /** 点击查件按钮回调 */
+  onClickSearch?: (waybillNo: string) => void;
+  /** 左侧插槽（多选框、复制按钮等） */
+  prefix?: React.ReactNode;
+  /** 右侧插槽（位于查件按钮之后，业务标签等） */
+  suffix?: React.ReactNode;
+}
+```
+
+## Code Mapping
+
+| 平台 | 源码路径 |
+|------|---------|
+| **React** | `packages/react/src/components/WaybillDisplay/index.tsx` |
+| **React Native** | `packages/react-native/src/components/WaybillDisplay/index.tsx` |
+| **Vue 3** | `packages/vue3/src/components/WaybillDisplay/src/WaybillDisplay.vue` |
+| **Flutter** | `packages/flutter/lib/src/components/waybill_display.dart` |
+| **小程序 / WXML** | `packages/mini-program/src/components/waybill-display/index.wxml` |
+| **Web HTML/CSS** | `packages/web/src/components/WaybillDisplay/styles.css` |
+| **Tokens 定义** | `packages/tokens/src/waybill-display.ts` |
+| **单元测试** | `packages/react/src/components/WaybillDisplay/__tests__/WaybillDisplay.test.tsx` |
+
+## AI Notes
+
+- **为什么容器高度是 32px 而不是其他值？** 32px 对齐了 Tag Small 的标准高度，保证 WaybillDisplay 在列表中与 Tag 组件同行时视觉对齐，避免高度参差不齐导致的列表行间距问题。
+
+- **为什么查件按钮用 Primary（#6445D1）而不是 Grey 或 Black？** 查件是本组件的核心业务操作，需要视觉突出。Primary 是系统主色调，传达"这是一个可点击的操作入口"，同时与运单号主体的 Black-NO.6 形成合理的视觉层次。
+
+- **为什么标签默认背景用 Yellow-NO.6（#FFD933）？** #FFD933 在业务语义中代表"待处理/进行中"的警示状态，与系统色阶的 Yellow 色系对齐。相比原来非标的 #FF9F02，#FFD933 在白底上对比度更佳，更符合无障碍规范。
+
+- **为什么前缀用 Grey-NO.4（#BDBDBD）而不是与主体同色？** 前缀（如 KY4000327）是运单号的分类标识，不是信息主体，用较浅的灰色降低其视觉权重，让用户优先读取主体运单号（如 225662），符合 F 型阅读模式。
+
+- **为什么用插槽而不是硬编码按钮？** 不同业务线对运单行的操作需求差异大（有的只需复制、有的需要多选），插槽设计让业务方可以注入任意元素，同时保持组件本身职责单一，无需为每种组合创建新的组件变体。
+
+## Variants Overview
+
+| 变体 | 说明 | 适用场景 |
+|------|------|---------|
+| **基础运单号** | 仅展示 prefixCode + waybillNo | 详情页静态展示 |
+| **带性别标签** | 含 genderTag（如"母"标签） | 宠物/活体运输场景 |
+| **带查件按钮** | 含 click-search 回调的查件按钮 | 列表页快速查件 |
+| **左侧插槽** | 插入多选框/复制按钮 | 批量操作列表 |
+| **右侧插槽** | 插入业务标签（易损高赔/必装票） | 业务属性标注 |
+| **完整组合** | prefix + genderTag + waybillNo + searchBtn + suffix | 全功能运单行 |
 
 ---
 
@@ -280,3 +476,11 @@ import { WaybillDisplay, Tag, Checkbox } from 'pda-design';
 3. **键盘支持**：支持 Tab 键聚焦，Enter 键触发点击事件
 4. **语义化**：使用 `aria-label` 标注运单号内容
 5. **复制功能**：复制按钮需配合 Toast 提示操作结果
+
+---
+
+## Changelog
+
+| 日期 | 版本 | 修改内容 | 作者 |
+|------|------|---------|------|
+| 2026-04-22 | v1.1.0 | 新增 Purpose、Use When/Avoid When、Interaction Flow、Design Tokens（结构化 Token 矩阵）、Props Contract（TypeScript 接口）、Code Mapping、AI Notes、Variants Overview；原"何时使用"章节已整合至 Use When/Avoid When | AI Refactor |

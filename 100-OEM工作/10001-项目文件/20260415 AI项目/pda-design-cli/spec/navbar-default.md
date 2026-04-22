@@ -1,5 +1,76 @@
 # Navbar - 默认
 
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Use When/Avoid When、Interaction Flow、AI Notes
+
+---
+
+## Purpose
+
+Navbar-默认 是 PDA 导航栏的基础形态，用于页面顶部的层级返回与标题展示，提供清晰的页面导航入口。
+
+## Use When / Avoid When
+
+| ✅ Use When | 说明 |
+|------------|------|
+| 通用页面标题 + 右侧操作按钮 | 最基础的导航场景 |
+| 需要返回上一页操作 | 配合 onBack 回调 |
+| 多页面栈中的中间页面 | 标准 App 导航模式 |
+
+| ❌ Avoid When | 替代方案 |
+|--------------|---------|
+| 底部导航 | BottomTabBar |
+| 弹窗内导航 | Dialog 内置标题区 |
+| 搜索场景 | navbar-search |
+
+## Interaction Flow
+
+```
+┌─────────────────────┐
+│ Navbar-默认 (Default) │ ← 页面挂载
+└────────┬────────────┘
+         │
+    ┌────┴──────────┐
+    │ 点击左侧返回图标 │
+    ▼
+┌─────────────────────┐
+│ 触发 onBack()      │ → 路由返回 / 关闭页面
+└─────────────────────┘
+         │
+    ┌────┴──────────┐
+    │ 点击右侧操作图标 │
+    ▼
+┌─────────────────────┐
+│ 触发对应回调/路由   │
+└─────────────────────┘
+```
+
+**动画参数：** 点击态反馈使用 200ms ease-in-out，背景色变为 `#EEEEEE` (Grey NO.2)。
+
+## Design Tokens
+
+| Token | 值 | 用途 |
+|-------|---|------|
+| `--color-navbar-default-bg` | `#F3F4F6` | 背景色（业务定制，接近 Grey NO.2） |
+| `--color-navbar-default-title` | `#333333` | 标题文字（Black NO.6） |
+| `--color-navbar-default-icon` | `#666666` | 图标色（Black NO.4） |
+| `--color-navbar-tap-bg` | `#EEEEEE` | 点击态背景（Grey NO.2） |
+| `--navbar-default-height` | `56px` | 导航栏高度 |
+| `--navbar-icon-hit-area` | `40px` | 图标点击热区 |
+
+## AI Notes
+
+**为什么背景色用 `#F3F4F6` 而非标准 Grey NO.2 `#EEEEEE`？**
+原规范使用 #F3F4F6，与设计系统 Grey NO.2 (#EEEEEE) 存在偏差。建议后续统一迁移到标准 token，以保持系统一致性。
+
+**为什么标题居中使用绝对定位而非 Flexbox？**
+原规范使用绝对定位实现视觉居中（考虑左右操作区宽度不对称时的精确居中），此实现方式可保留。
+
+**为什么左侧返回图标使用 12px 而右侧操作区使用 16px 边距？**
+左侧边距较小以容纳返回箭头，右侧需要更大空间防止操作按钮过于贴近屏幕边缘，符合 Touch Target 规范。
+
+---
+
 该组件为基础导航形态，主要用于页面顶部的层级返回与标题展示。
 
 ## 1. 组件概述
@@ -92,5 +163,4 @@ import { IconArrowLeft, IconSearch } from 'pda-design-cli/spec/icons';
 
 ## 7. 交互与状态
 
-- **点击热区：** 左右两侧的图标区域应具备至少 40px × 40px 的点击热区。
-- **状态反馈：** 点击左侧返回箭头应有即时反馈（如透明度变化或背景色变化，建议使用 Grey NO.2 `#EEEEEE`）。
+| v1.1.0 | 2026-04-22 | 新增 Purpose、Use When/Avoid When、Interaction Flow、AI Notes、Design Tokens 结构化 |

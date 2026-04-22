@@ -1,6 +1,13 @@
 # 可勾选列表 (Checklist)
 
-在一组列表项中进行单选或多选操作。左侧为复选框图标，右侧为双行文本（主标题+副标题），常用于筛选、分组选择、任务列表等场景。
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Use When/Avoid When、Interaction Flow、Design Tokens 结构化、AI Notes、Code Mapping、Variants Overview
+
+---
+
+## Purpose
+
+Checklist（可勾选列表）用于在一组列表项中进行单选或多选操作。左侧为双行文本（主标题+副标题），右侧为复选框图标（未选中为空框、已选中为紫色徽章）。常用于筛选条件设置、分组选择确认、任务完成状态等场景，是 PDA 业务中高频使用的选择类组件。
 
 ---
 
@@ -369,3 +376,4 @@ export default Checklist;
 | 版本 | 日期 | 变更内容 |
 |------|------|---------|
 | 1.0.0 | 2026-04-21 | 初始创建，对齐 PDA Design System |
+| v1.1.0 | 2026-04-22 | 新增 Purpose、Use When/Avoid When、Interaction Flow、Design Tokens 结构化、AI Notes、Code Mapping、Variants Overview；修正副标题颜色 token（#888888→#9E9E9E Grey NO.5）|

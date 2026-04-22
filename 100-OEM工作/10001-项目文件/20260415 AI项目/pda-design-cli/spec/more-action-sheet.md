@@ -1,5 +1,159 @@
 # 更多操作面板 (MoreActionSheet)
 
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Use When/Avoid When、Interaction Flow、AI Notes、Code Mapping
+
+---
+
+## Purpose
+
+更多操作面板是底部弹出的动作面板组件，用于承载次要或扩展功能入口。解决导航栏空间有限、无法展示全部功能的问题，通过底部抽屉形式提供扩展操作空间，同时保持主界面简洁。
+
+## Use When / Avoid When
+
+| ✅ 使用场景 | ❌ 避免场景 |
+|------------|------------|
+| 功能入口超过 3 个，导航栏无法容纳 | 核心高频操作，应直接展示在导航栏 |
+| 次要功能需要收起，保持主界面简洁 | 需要用户立即决策的关键操作 |
+| 列表页/详情页的批量操作入口 | 操作项少于 2 个，直接展示更高效 |
+| 设置类功能的分类入口 | 需要复杂表单输入的场景 |
+| 模块评价、刷新等辅助功能 | 层级过深的多级菜单 |
+
+## Interaction Flow
+
+```
+[点击"更多"按钮] ──→ [遮罩层淡入 opacity 0→0.5]
+                          │
+                          ▼
+               [面板从底部滑入 translateY(100%)→0]
+                          │
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+    [点击操作项]    [点击遮罩层]    [点击关闭按钮]
+          │               │               │
+          ▼               ▼               ▼
+    [触发业务操作]   [面板下滑关闭]   [面板下滑关闭]
+          │               │               │
+          ▼               ▼               ▼
+    [面板自动关闭]   [遮罩层淡出]   [遮罩层淡出]
+          │               │               │
+          └───────────────┴───────────────┘
+                          │
+                          ▼
+                    [恢复页面交互]
+```
+
+触发条件：
+- **打开**：点击导航栏"更多"按钮，遮罩层 200ms 淡入，面板 300ms 上滑
+- **关闭**：点击遮罩层、点击关闭按钮、点击操作项后自动关闭
+- **按压态**：操作项按压时背景色变为 `rgba(0,0,0,0.08)`
+
+## Design Tokens
+
+### 颜色 Token 矩阵
+
+| 元素 | 属性 | Token | 色值 |
+|------|------|-------|------|
+| 面板背景 | Background | Grey NO.2 | `#F5F5F5` |
+| 标题文字 | Text Color | Black NO.6 | `#333333` |
+| 图标背景 | Background | Black NO.1 | `#FFFFFF` |
+| 图标边框 | Border | Grey NO.3 | `#D6D6D6`（注：原规范为 `#E0E0E0`） |
+| 标签文字 | Text Color | Black NO.6 | `#333333` |
+| 分割线 | Border | Grey NO.2 | `#EEEEEE` |
+| 关闭按钮背景 | Background | Black NO.1 | `#FFFFFF` |
+| 关闭按钮边框 | Border | Grey NO.5 | `#9E9E9E` |
+| 关闭按钮文字 | Text Color | Grey NO.5 | `#9E9E9E` |
+| 按压态背景 | Background | — | `rgba(0,0,0,0.08)` |
+
+### 排版 Token
+
+| 元素 | 字号 | 行高 | 字重 | 字体 |
+|------|------|------|------|------|
+| 面板标题 | 22px | 30px | 600 (Bold) | PingFang SC |
+| 功能标签 | 16px | 22px | 600 (Bold) | PingFang SC |
+| 关闭按钮 | 22px | 30px | 400 (Regular) | PingFang SC |
+
+### 间距与尺寸 Token
+
+| 属性 | 数值 | Token |
+|------|------|-------|
+| 面板内边距 | 16px | Gap 默认 |
+| 图标容器尺寸 | 68×68px | — |
+| 图标尺寸 | 40×40px | — |
+| 图标容器圆角 | 50% | — |
+| 网格行间距 | 18px | — |
+| 网格列间距 | 32px | Gap Large |
+| 面板顶部圆角 | 16px | Radius Large |
+| 关闭按钮圆角 | 8px | Radius Medium |
+| 面板最大高度 | 740px | — |
+| 面板最小高度 | 320px | — |
+| 关闭按钮高度 | 64px | — |
+| 关闭按钮左右边距 | 16px | Gap 默认 |
+
+### 动画 Token
+
+| 阶段 | 属性 | 时长 | 缓动 |
+|------|------|------|------|
+| 遮罩层淡入 | opacity 0→0.5 | 200ms | ease-out |
+| 面板上滑 | translateY(100%)→0 | 300ms | ease-out |
+| 遮罩层淡出 | opacity 0.5→0 | 200ms | ease-in |
+| 面板下滑 | translateY(0)→translateY(100%) | 250ms | ease-in |
+
+## Props Contract
+
+```typescript
+interface Action {
+  /** 操作唯一标识 */
+  id: string;
+  /** 图标名称（icon 包中的名称，如 'refresh'） */
+  icon: string;
+  /** 标签文字 */
+  label: string;
+}
+
+interface MoreActionSheetProps {
+  /** 是否可见 */
+  visible: boolean;
+  /** 操作项列表 */
+  actions: Action[];
+  /** 操作项点击回调 */
+  onAction: (action: Action) => void;
+  /** 关闭回调 */
+  onClose: () => void;
+  /** 自定义标题，默认"更多操作" */
+  title?: string;
+  /** 关闭按钮文字，默认"关闭" */
+  closeText?: string;
+}
+```
+
+## Code Mapping
+
+| 平台 | 路径 |
+|------|------|
+| React | `src/components/MoreActionSheet/index.tsx` |
+| CSS | `src/components/MoreActionSheet/style.css` |
+| 设计稿 | `spec/more-action-sheet.md` |
+| 图标包 | `src/components/icon/business/` |
+
+## AI Notes
+
+- **为什么采用底部抽屉形式？** 因为移动端/车载屏幕宽度有限，底部抽屉符合用户单手操作习惯，且不会遮挡当前页面核心内容，提供自然的操作延续感。
+- **为什么图标容器用 68×68px？** 因为该尺寸在 4 列网格布局下（32px 列间距）恰好填满 448px 内容区宽度，同时 68px 满足触控最小目标尺寸（44px）且有足够留白，提升点击准确率。
+- **为什么面板最大高度限制 740px？** 因为需要预留顶部空间显示遮罩层，暗示用户可点击遮罩关闭；同时确保关闭按钮始终可见，提供明确的关闭入口。
+- **为什么关闭按钮用 Grey NO.5（`#9E9E9E`）边框和文字？** 因为低饱和度灰色降低关闭按钮的视觉权重，引导用户优先关注操作项而非关闭；同时保持与面板整体灰调风格一致。
+- **为什么动画时长控制在 200-300ms？** 因为该时长范围符合人眼感知舒适区（<300ms 感觉即时，>300ms 感觉缓慢），ease-out 上滑给人自然弹出感，ease-in 下滑给人自然收回感。
+
+## Variants Overview
+
+| 变体 | 图标列数 | 最大操作项 | 说明 |
+|------|----------|-----------|------|
+| 标准模式 | 4 列 | 8-12 项 | 默认网格布局，超出可滚动 |
+| 精简模式 | 4 列 | 4-6 项 | 无滚动，面板高度自适应 |
+| 可滚动模式 | 4 列 | 12+ 项 | 操作区最大滚动高度 417px |
+
+---
+
 底部弹出的动作面板，承载次要或扩展功能入口。
 
 ## 1. 组件概述
@@ -202,3 +356,9 @@ const actions: Action[] = [
 2. **颜色标准化**：`#52567B` 已映射至 `Grey-NO.5`（`#9E9E9E`），关闭按钮文字与边框同色。
 3. **图标管理**：业务图标均位于 `icon` 包的 `business` 分类下，维护于 `spec/icons/` 目录。
 4. **滚动边界**：面板最大高度 740px，操作区最大滚动高度 417px，确保关闭按钮始终可见。
+
+## Changelog
+
+| 日期 | 版本 | 变更内容 |
+|------|------|---------|
+| 2026-04-22 | v1.1.0 | 新增 Purpose、Use When/Avoid When、Interaction Flow、Design Tokens、Props Contract、Code Mapping、AI Notes、Variants Overview 章节；保留原有全部规格数据 |

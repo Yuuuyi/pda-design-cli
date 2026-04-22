@@ -1,5 +1,149 @@
 # 缺省页组件 (EmptyState)
 
+# 缺省页组件 (EmptyState)
+
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Use When/Avoid When、Interaction Flow、AI Notes、Variants Overview
+
+---
+
+## Purpose
+
+EmptyState（缺省页组件）用于页面无数据、无内容、网络异常等场景的空状态展示。在 PDA 仓储物流业务中，运单扫描、任务分配、记录查询等高频场景均依赖缺省页引导用户进行下一步操作。设计目标是：通过插画建立情感连接、通过标题说明当前状态、通过说明文案提供解决路径、通过操作按钮推动用户行动，从而减少用户困惑、降低跳出率。
+
+## Use When / Avoid When
+
+| ✅ 使用场景 | 推荐变体 |
+|------------|---------|
+| 页面初始加载无数据（暂无任务、暂无记录） | `no-task`、`no-record` |
+| 网络异常导致内容无法加载 | `network-error` |
+| 搜索结果为空 | `no-result` |
+| 权限不足无法访问 | `no-permission` |
+| 运单扫描页等待扫码 | `scan-waybill` |
+| 托盘扫描页 | `scan-pallet` |
+
+| ❌ 避免场景 | 替代方案 |
+|-----------|---------|
+| 加载中状态 | Loading/Spinner |
+| 操作失败（错误提示） | NoticeBar / Toast |
+| 页面有数据但布局出错 | 检查组件使用 |
+
+## Interaction Flow
+
+```
+┌──────────────────┐
+│   EmptyState      │ ← 页面内容为空/无数据
+│  (缺省展示态)      │
+└────────┬─────────┘
+         │ 用户点击主按钮
+         ▼
+┌──────────────────┐
+│ Primary Action    │ ← 例：刷新页面、重新加载
+└──────────────────┘
+         │ (可选) 用户点击次级按钮
+         ▼
+┌──────────────────┐
+│ Secondary Action  │ ← 例：返回首页、取消
+└──────────────────┘
+```
+
+- **插画选择**：根据页面语义从 10 种插画中选择对应 icon 类型
+- **按钮展示**：primaryButtonText 存在时显示主按钮；secondaryButtonText 存在时显示次级按钮；两者可同时存在
+- **点击态**：按钮按下时背景色变化（主按钮按 `#5838BC`，次级按钮按 `#F1E7FF`）
+
+## Design Tokens
+
+| Token | 值 | 用途 |
+|-------|---|------|
+| `--color-empty-illustration-title` | `#52567B` | 标题文字（Grey NO.6） |
+| `--color-empty-illustration-desc` | `#BDBDBD` | 说明文案（Grey NO.4） |
+| `--color-empty-primary-btn-bg` | `#6445D1` | 主按钮背景（Primary NO.6） |
+| `--color-empty-primary-btn-text` | `#FFFFFF` | 主按钮文字（White） |
+| `--color-empty-secondary-btn-border` | `#6445D1` | 次级按钮边框（Primary NO.6） |
+| `--color-empty-secondary-btn-text` | `#6445D1` | 次级按钮文字（Primary NO.6） |
+
+### 插画色调 Token
+
+| Token | 值 | 用途 |
+|-------|---|------|
+| `--color-empty-art-primary` | `#6B95FF` | 插画主色调 |
+| `--color-empty-art-secondary` | `#5477CB` | 插画次色调 |
+| `--color-empty-art-light` | `#B1D8FE` | 插画浅色 |
+| `--color-empty-art-dark` | `#5584F1` | 插画深色 |
+| `--color-empty-art-shadow` | `#4E86E7` | 插画投影 |
+
+## Props Contract
+
+```typescript
+type EmptyStateIconType =
+  | 'no-content'       // 暂无内容
+  | 'no-record'        // 暂无记录
+  | 'no-task'          // 暂无任务
+  | 'no-result'        // 暂无查询结果
+  | 'no-payment'       // 暂无收款项
+  | 'no-permission'    // 暂无权限
+  | 'network-error'    // 网络无连接
+  | 'scan-waybill'     // 请扫描运单号
+  | 'scan-pallet'     // 请扫齐托盘货物
+  | 'fill-waybill';    // 填写运单号
+
+interface EmptyStateProps {
+  icon: EmptyStateIconType;              // 必填，插画类型
+  title?: string;                        // 可选，标题文字
+  description?: string;                  // 可选，说明文案
+  primaryButtonText?: string;           // 可选，主按钮文案
+  onPrimaryButtonClick?: () => void;    // 主按钮点击
+  secondaryButtonText?: string;         // 可选，次级按钮文案
+  onSecondaryButtonClick?: () => void; // 次级按钮点击
+  customIcon?: React.ReactNode;         // 可选，自定义插画（优先级高于 icon）
+  className?: string;                   // 可选，自定义样式类
+}
+```
+
+## Code Mapping
+
+| 平台 | 路径 | 状态 |
+|------|------|------|
+| React | `src/components/EmptyState/index.tsx` | 待实现 |
+| Vue | - | 待实现 |
+| iOS (SwiftUI) | `ios/EmptyStateView.swift` | 待实现 |
+| Android (XML) | `android/EmptyStateView.kt` | 待实现 |
+| Storybook | `stories/EmptyState.stories.tsx` | 待补充 |
+
+## AI Notes
+
+**为什么 10 种插画语义必须一一对应？**
+因为插画是视觉锚点，错误语义会误导用户判断当前页面状态，导致操作路径混乱。
+
+**为什么字号使用 20px 标题/18px 说明，不在 Typography 标准字阶？**
+空状态需要更突出的视觉层级来吸引注意，业务特殊需求允许偏离标准字阶，但需注明。
+
+**为什么主按钮宽度固定 240px？**
+避免长文案按钮破坏页面布局一致性，240px 提供足够触控区域同时保持美观。
+
+**为什么插画统一 160×160px？**
+标准化尺寸避免不同插画造成页面高度跳动，提升用户阅读流畅性。
+
+**为什么没有动画规范？**
+空状态非高频交互态，优先保证加载性能，不强制要求入场动画。
+
+## Variants Overview
+
+| 插画 icon | 标题（参考）| 适用场景 | 优先级 |
+|---------|-----------|---------|--------|
+| `no-content` | 暂无内容 | 页面内容为空 | 高频 |
+| `no-record` | 暂无记录 | 操作记录为空 | 高频 |
+| `no-task` | 暂无任务 | 未分配任务 | 高频 |
+| `no-result` | 暂无查询结果 | 搜索无结果 | 高频 |
+| `no-payment` | 暂无收款项 | 财务类页面 | 低频 |
+| `no-permission` | 暂无权限 | 权限限制 | 中频 |
+| `network-error` | 网络无连接 | 网络异常/离线 | 高频 |
+| `scan-waybill` | 请扫描运单号 | 运单扫描页 | 高频 |
+| `scan-pallet` | 请扫齐托盘货物 | 托盘扫描页 | 中频 |
+| `fill-waybill` | 填写运单号 | 运单填写页 | 中频 |
+
+---
+
 用于页面无数据、无内容、网络异常等场景的空状态展示。通过插画、标题、说明文本和操作按钮引导用户进行下一步操作。
 
 ---
@@ -358,7 +502,13 @@ import { EmptyState } from 'pda-design';
 
 ---
 
-## 十、关联组件
+## Changelog
+
+| 版本 | 日期 | 变更 |
+|------|------|------|
+| v1.0.0 | 2026-04-21 | 初始版本 |
+| v1.1.0 | 2026-04-22 | 新增 Purpose、Use When/Avoid When、Interaction Flow、AI Notes、Variants Overview、Design Tokens 结构化 |
+
 
 | 组件 | 关联说明 |
 |------|---------|
