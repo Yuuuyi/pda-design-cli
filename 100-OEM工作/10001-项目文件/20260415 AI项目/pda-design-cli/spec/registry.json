@@ -306,6 +306,30 @@
         "弹窗",
         "运单"
       ]
+    },
+    "toast": {
+      "name": "轻提示 (Toast)",
+      "file": "toast.md",
+      "category": "feedback",
+      "tags": [
+        "toast",
+        "feedback",
+        "轻提示",
+        "snackbar",
+        "反馈"
+      ]
+    },
+    "notice-bar": {
+      "name": "消息通知栏 (NoticeBar)",
+      "file": "notice-bar.md",
+      "category": "feedback",
+      "tags": [
+        "notice",
+        "noticebar",
+        "notification",
+        "消息",
+        "通知"
+      ]
     }
   },
   "tokens": {
