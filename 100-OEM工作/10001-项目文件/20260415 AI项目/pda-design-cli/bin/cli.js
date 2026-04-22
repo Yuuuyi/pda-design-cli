@@ -8,7 +8,7 @@ const { initCommand } = require('../lib/commands/init');
 program
   .name('pda-design')
   .description('PDA Design System CLI - 拉取设计规范，供 AI 读取和开发参考')
-  .version('1.2.32');
+  .version('1.2.33');
 
 program
   .command('add <component>')
