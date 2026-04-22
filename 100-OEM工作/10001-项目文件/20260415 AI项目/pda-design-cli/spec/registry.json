@@ -294,6 +294,18 @@
         "input",
         "scan"
       ]
+    },
+    "waybill-popup": {
+      "name": "运单弹出层 (WaybillPopup)",
+      "file": "waybill-popup.md",
+      "category": "feedback",
+      "tags": [
+        "popup",
+        "modal",
+        "waybill",
+        "弹窗",
+        "运单"
+      ]
     }
   },
   "tokens": {
