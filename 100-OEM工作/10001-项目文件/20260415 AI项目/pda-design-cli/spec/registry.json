@@ -330,6 +330,19 @@
         "消息",
         "通知"
       ]
+    },
+    "navbar-sidebar": {
+      "name": "侧边导航栏 (Navbar SideBar)",
+      "file": "navbar-sidebar.md",
+      "category": "navigation",
+      "tags": [
+        "sidebar",
+        "sidenav",
+        "侧边栏",
+        "导航栏",
+        "菜单"
+      ],
+      "note": "侧边导航栏组件，支持嵌套子菜单"
     }
   },
   "tokens": {
