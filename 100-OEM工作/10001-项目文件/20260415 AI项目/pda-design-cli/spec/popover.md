@@ -1,108 +1,203 @@
 # 气泡卡片 (Popover)
 
-用于展示补充说明、备注信息或文本溢出内容的轻量级弹层组件。
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Interaction Flow（结构化）、AI Notes、Code Mapping、Variants Overview；规范化 Design Tokens 和 Props Contract
 
 ---
 
-## 何时使用
+## Purpose
 
-**用这个组件，当：**
-- 需要展示补充说明、备注、帮助信息，用户主动触发查看
-- 需要在点击元素附近展示操作选项
+PDA Popover 是**轻量级弹层组件**，用于展示补充说明、备注信息或操作选项。**用户主动触发**，内容简短紧凑，出现在触发元素附近。
 
-**不要用这个组件，当：**
-- 需要强制用户确认才能继续 → 用 Modal
-- 只是展示通知/公告 → 用 NoticeBar
-- 需要多选项选择 → 用 ActionSheet / Dropdown
-- 需要在页面顶部展示系统消息 → 用 NoticeBar
+核心特征：
+- 轻量：比 Modal 小，只占用触发元素附近区域
+- 主动触发：用户有意查看，而非系统强制推送
+- 临时展示：点击外部即关闭
+
+---
+
+## Use When / Avoid When
+
+### ✅ Use When — 选这个组件的场景
+
+| 场景 | 说明 |
+|------|------|
+| 表格列头 "?" 说明 | 补充字段含义，用户 hover/tap 查看 |
+| 操作按钮帮助提示 | "长按可快速复制" 等操作指引 |
+| 列表项 "更多" 选项 | 3-5 个操作项，不需要 ActionSheet |
+| 文本溢出展开 | 单行文本过长，点击展开完整内容 |
+| 备注/补充说明 | 订单备注、用户备注等次要信息 |
+
+### ❌ Avoid When — 不要用这个组件的场景
+
+| 场景 | 替代方案 |
+|------|---------|
+| 需要强制用户确认才能继续 | Modal |
+| 只是展示通知/公告 | NoticeBar |
+| 需要多选项列表（超过 5 项） | ActionSheet / Dropdown |
+| 需要在页面顶部展示系统消息 | NoticeBar |
+| 需要承载表单或复杂内容 | Modal |
+| 在页面底部展示操作选项 | ActionSheet |
 
 **Popover vs Modal vs NoticeBar 决策：**
 
 ```
 是否需要用户主动触发查看信息？
 ├─ 是，补充说明/备注 → Popover（轻量，用户自主控制）
-├─ 是，底部操作选项 → Popover
+├─ 是，底部操作选项（≤5项）→ Popover
 │
 ├─ 否，需要强制展示阻断用户 → Modal
 ├─ 否，顶部系统通知 → NoticeBar
 └─ 否，需要多选项列表 → ActionSheet
 ```
 
-**Popover 典型场景：**
-- 表格列头"?"说明
-- 操作按钮 hover 显示帮助
-- 列表项右侧"更多"选项
-
 ---
 
-## 一、组件结构
+## Interaction Flow
+
+> Popover 是**触发控制型**组件：触发元素决定显示/隐藏，Popover 本身只管理自身动画。
 
 ```
-┌─────────────────────────┐
-│ [图标] 文本内容...      │ ← 气泡主体
-└─────────────────────────┘
-         ▲                ← 箭头（可选）
+触发器（按钮/文字）
+    │
+    ├──[触发器 disabled]──→ Popover 不显示（直接返回）
+    │
+    └──[触发器点击]──┬──[当前隐藏]──→ Visible（淡入+缩放 0.95→1）
+                     └──[当前显示]──→ Hidden（淡出+缩放 1→0.95）
+                                        │
+                                        └─[点击外部]──→ Hidden（关闭）
 ```
 
+**状态矩阵：**
+
+| 状态 | opacity | transform | 触发条件 |
+|------|---------|-----------|---------|
+| **Hidden** | 0 | scale(0.95) | 默认 / 点击外部 |
+| **Visible** | 1 | scale(1) | 触发器点击（toggle） |
+
+**动画参数：**
+- 显示：`opacity 0→1` + `scale(0.95→1)`，`500ms ease-out`
+- 隐藏：`opacity 1→0` + `scale(1→0.95)`，`500ms ease-out`
+- Disabled：Popover 不渲染，不存在 disabled 态
+
 ---
 
-## 二、尺寸参数
+## Design Tokens
 
-| 属性 | 值 | Token 映射 |
-|------|-----|-----------|
-| 内边距 | **12px 16px** | 上下 12px，左右 16px |
-| 圆角 | **8px** | Radius: 8px |
-| 最大宽度 | **280px** | - |
-| 最小宽度 | **120px** | - |
-| 箭头宽度 | **16px** | - |
-| 箭头高度 | **8px** | - |
+### 核心参数
 
----
+| Token | 值 |
+|-------|-----|
+| 内边距 | 12px（垂直）16px（水平） |
+| 圆角 | 8px |
+| 最大宽度 | 280px |
+| 最小宽度 | 120px |
+| 箭头宽度 | 16px |
+| 箭头高度 | 8px |
+| z-index | 1100 |
 
-## 三、颜色规范
+### 颜色 Token 矩阵
 
-| 元素 | 颜色 | Token |
+| 元素 | 值 | Token |
 |------|------|-------|
-| 气泡背景 | `#000000` | **Black NO.7** |
-| 气泡文字 | `#FFFFFF` | **Black NO.1** |
-| 箭头颜色 | `#000000` | **Black NO.7**（与背景同色） |
+| 气泡背景 | `#000000` | Black NO.7 |
+| 气泡文字 | `#FFFFFF` | Black NO.1 |
+| 箭头颜色 | `#000000` | Black NO.7（与背景同色） |
 
----
+> **为什么 Popover 用纯黑背景而非白色？** Popover 用于在任意位置叠加显示，纯黑背景确保在任何底色（白色卡片、灰色区域）上都有清晰的轮廓边界，且与系统 Tooltip 风格一致。
 
-## 四、排版规范
+### 排版 Token
 
 | 属性 | 值 | Token |
 |------|-----|-------|
-| 字体 | **PingFang SC** | - |
-| 字号 | **16px** | Popover 专用字号 |
-| 字重 | **400 (Regular)** | - |
-| 行高 | **24px** | - |
-| 图标与文字间距 | **8px** | Gap: 8px |
-
-> **注意**：Popover 字号 16px 独立于按钮系统，用于提示性文本展示。
+| 字体 | PingFang SC | - |
+| 字号 | 16px | Popover 专用字号（非 Button 22px） |
+| 字重 | 400 (Regular) | - |
+| 行高 | 24px | - |
+| 图标间距 | 8px | Gap: 8px |
 
 ---
 
-## 五、状态定义
+## Props Contract
 
-| 状态 | 可见性 | 动画 | 说明 |
-|------|--------|------|------|
-| **Hidden** | 隐藏 | opacity: 0, transform: scale(0.95) | 默认隐藏 |
-| **Visible** | 显示 | opacity: 1, transform: scale(1) | 展示状态 |
-| **Disabled** | 隐藏 | - | 触发元素禁用时不显示 |
+| Prop | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `content` | `ReactNode` | 是 | 气泡内容 |
+| `placement` | `'top' \| 'bottom'` | 否（默认 bottom） | 箭头方向 |
+| `trigger` | `'click'` | 否（默认 click） | 触发方式（移动端仅 click） |
+| `maxWidth` | `number` | 否（默认 280） | 最大宽度 px |
+| `minWidth` | `number` | 否（默认 120） | 最小宽度 px |
+| `icon` | `ReactNode` | 否 | 左侧图标 |
+| `disabled` | `boolean` | 否 | 禁用（不显示 Popover） |
+| `className` | `string` | 否 | 自定义类名 |
 
 ---
 
-## 六、箭头设计
+## Code Mapping
 
-### 6.1 方向
+| 平台 | 路径 | 状态 |
+|------|------|------|
+| React | `src/components/Popover/index.tsx` | 待补充 |
+| Vue | - | 待实现 |
+| iOS (SwiftUI) | - | 待实现 |
+| Android (XML) | - | 待实现 |
+| Storybook | - | 待补充 |
 
-| 方向 | 位置 | 使用场景 |
-|------|------|---------|
-| **向上 ↑** | 气泡底部 | 触发元素在气泡下方 |
-| **向下 ↓** | 气泡顶部 | 触发元素在气泡上方 |
+---
 
-### 6.2 CSS 绘制（border）
+## AI Notes
+
+**为什么箭头用 CSS border 绘制而不是图标？**
+CSS border 箭头是纯 CSS 实现，零图标依赖，保持轻量化。箭头只需要上下两个方向，用 `border-left/right: 8px solid transparent` + `border-bottom/top` 控制方向即可，无需加载 SVG 文件。
+
+**为什么 z-index 是 1100 而非 1000？**
+Modal 标准 z-index 是 1000，Popover 需要比 Modal 层级更高（因为 Popover 可能在 Modal 内部触发）。1100 留出 100 的缓冲空间，避免与 Modal 层级冲突。
+
+**为什么动画用 scale 而不只是 opacity？**
+Popover 的 scale 变化（0.95→1）制造"弹出"的物理感，比单纯 opacity 更明显。如果只用 opacity，用户可能感受不到内容的切换。scale(0.95) 也让出现时有一个轻微"收紧"再"弹出"的效果。
+
+**为什么 content 接受 ReactNode 而不只是 string？**
+Popover 内容可能包含图标、链接、格式化文本，不能限制为纯文本。传入 ReactNode 是最灵活的设计，但规范中应注明：内容应保持简短（≤ 3 行），避免放置复杂交互元件。
+
+**为什么 popover 的字号是 16px 而不是 Button 的 22px？**
+Popover 是辅助提示文字，不是操作按钮。16px 在紧凑空间内可显示更多内容，同时与正文文字（16px）保持一致。22px 字号用于操作按钮，在 Popover 提示场景显得过大。
+
+---
+
+## Variants Overview
+
+| 变体 | 箭头 | 图标 | 典型内容 | 典型场景 |
+|------|------|------|---------|---------|
+| 基础气泡 | - | - | 纯文本提示 | 说明文字 |
+| 带箭头气泡 | ✓ | - | 指向性提示 | 表单提示 |
+| 带图标气泡 | ✓ | ✓ | 状态性提示（警告/成功） | 操作指引 |
+| 无箭头卡片 | - | ✓ | 悬浮信息卡 | 备注信息 |
+
+---
+
+## 核心参数
+
+| 属性 | 值 | Token |
+|------|-----|-------|
+| 内边距 | 12px 16px | Gap: 12px V / 16px H |
+| 圆角 | 8px | Radius: 8px |
+| 最大宽度 | 280px | - |
+| 最小宽度 | 120px | - |
+| 字号 | 16px | Typography: Regular |
+| 行高 | 24px | - |
+| z-index | 1100 | - |
+
+---
+
+## 详细规格
+
+### 一、箭头设计
+
+**方向规则：**
+- `placement="bottom"`：箭头向下（指向触发元素），气泡在触发元素上方
+- `placement="top"`：箭头向上，气泡在触发元素下方
+
+**CSS border 绘制：**
 
 ```css
 /* 箭头向下（在气泡顶部） */
@@ -130,286 +225,7 @@
 }
 ```
 
----
-
-## 七、动效规范
-
-| 属性 | 值 | Token |
-|------|-----|-------|
-| 动画时长 | **500ms** | duration-500 |
-| 缓动函数 | **ease-out** | - |
-| 显示动画 | opacity 0→1 + scale(0.95)→(1) | - |
-| 隐藏动画 | opacity 1→0 + scale(1)→(0.95) | - |
-
-```css
-.popover {
-  opacity: 0;
-  transform: scale(0.95);
-  transform-origin: bottom center;
-  transition: opacity 500ms ease-out, transform 500ms ease-out;
-}
-
-.popover.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-```
-
-### 无障碍动效偏好
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  .popover {
-    transition: none;
-  }
-}
-```
-
----
-
-## 八、层级规范
-
-| 属性 | 值 | 说明 |
-|------|-----|------|
-| z-index | **1100** | 高于 Modal (1000)，确保在最上层 |
-| position | absolute / fixed | 根据定位方式选择 |
-
----
-
-## 九、组件 API
-
-```typescript
-interface PopoverProps {
-  /** 气泡内容 */
-  content: React.ReactNode;
-  /** 箭头方向 */
-  placement?: 'top' | 'bottom';
-  /** 触发方式（移动端仅 click） */
-  trigger?: 'click';
-  /** 最大宽度 */
-  maxWidth?: number;
-  /** 图标插槽 */
-  icon?: React.ReactNode;
-  /** 是否禁用 */
-  disabled?: boolean;
-  /** 自定义类名 */
-  className?: string;
-}
-```
-
----
-
-## 十、使用场景
-
-| 场景 | placement | 说明 |
-|------|-----------|------|
-| 表单提示 | bottom | 输入框下方提示 |
-| 文本溢出 | bottom | 展示完整内容 |
-| 备注说明 | top | 卡片上方补充信息 |
-| 操作指引 | bottom | 引导用户操作 |
-
----
-
-## 十一、代码示例
-
-### 11.1 基础用法
-
-```html
-<!-- 箭头向下 -->
-<div class="popover popover-arrow-down" role="tooltip">
-  <div class="popover-content">
-    <span class="popover-icon">
-      <svg width="16" height="16" aria-hidden="true">
-        <use href="/icons/icon_tips_outline.svg" />
-      </svg>
-    </span>
-    <span class="popover-text">这是一条提示信息</span>
-  </div>
-</div>
-```
-
-### 11.2 CSS 样式
-
-```css
-/* Popover 容器 */
-.popover {
-  position: absolute;
-  display: inline-flex;
-  flex-direction: column;
-  max-width: 280px;
-  min-width: 120px;
-  
-  /* 动画初始状态 */
-  opacity: 0;
-  transform: scale(0.95);
-  transition: opacity 500ms ease-out, transform 500ms ease-out;
-  
-  z-index: 1100;
-}
-
-.popover.visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* 内容区域 */
-.popover-content {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 12px 16px;
-  
-  background-color: #000000; /* Black NO.7 */
-  border-radius: 8px;
-}
-
-/* 文本样式 */
-.popover-text {
-  font-family: 'PingFang SC', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  color: #FFFFFF; /* Black NO.1 */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* 图标 */
-.popover-icon {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-}
-
-.popover-icon svg {
-  width: 16px;
-  height: 16px;
-  color: #FFFFFF;
-}
-
-/* 箭头向下（在气泡顶部） */
-.popover-arrow-down::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid #000000;
-}
-
-/* 箭头向上（在气泡底部） */
-.popover-arrow-up::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid #000000;
-}
-
-/* 无障碍：减少动效 */
-@media (prefers-reduced-motion: reduce) {
-  .popover {
-    transition: none;
-  }
-}
-```
-
-### 11.3 JavaScript 控制
-
-```javascript
-class Popover {
-  constructor(trigger, options = {}) {
-    this.trigger = trigger;
-    this.popover = this.createPopover(options);
-    this.visible = false;
-    
-    // 点击触发元素显示/隐藏
-    this.trigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.toggle();
-    });
-    
-    // 点击外部关闭
-    document.addEventListener('click', (e) => {
-      if (!this.popover.contains(e.target) && !this.trigger.contains(e.target)) {
-        this.hide();
-      }
-    });
-  }
-  
-  createPopover(options) {
-    const el = document.createElement('div');
-    el.className = `popover popover-arrow-${options.placement || 'down'}`;
-    el.setAttribute('role', 'tooltip');
-    el.innerHTML = `
-      <div class="popover-content">
-        ${options.icon ? `<span class="popover-icon">${options.icon}</span>` : ''}
-        <span class="popover-text">${options.content}</span>
-      </div>
-    `;
-    document.body.appendChild(el);
-    return el;
-  }
-  
-  show() {
-    this.visible = true;
-    this.popover.classList.add('visible');
-    this.updatePosition();
-  }
-  
-  hide() {
-    this.visible = false;
-    this.popover.classList.remove('visible');
-  }
-  
-  toggle() {
-    this.visible ? this.hide() : this.show();
-  }
-  
-  updatePosition() {
-    const triggerRect = this.trigger.getBoundingClientRect();
-    const popoverRect = this.popover.getBoundingClientRect();
-    
-    // 根据placement计算位置
-    // ...定位逻辑
-  }
-}
-```
-
----
-
-## 十二、无障碍规范
-
-1. 使用 `role="tooltip"` 语义化角色
-2. 触发元素添加 `aria-describedby` 关联气泡
-3. 装饰性图标添加 `aria-hidden="true"`
-4. 确保颜色对比度符合 WCAG AA 标准（黑底白字 > 4.5:1）
-5. 支持键盘关闭（Escape 键）
-
-```html
-<button aria-describedby="popover-1">提示</button>
-<div id="popover-1" class="popover" role="tooltip">
-  <!-- 内容 -->
-</div>
-```
-
-```javascript
-// ESC 键关闭
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    popover.hide();
-  }
-});
-```
-
----
-
-## 十三、变体对照
+### 二、变体对照
 
 | 变体 | 箭头 | 图标 | 用途 |
 |------|------|------|------|
@@ -420,11 +236,92 @@ document.addEventListener('keydown', (e) => {
 
 ---
 
-## 十四、关联组件
+## 无障碍规范
+
+1. 触发元素添加 `aria-describedby` 关联 Popover
+2. Popover 使用 `role="tooltip"` 语义
+3. 装饰性图标添加 `aria-hidden="true"`
+4. 黑底白字对比度 > 4.5:1 ✅
+5. 支持键盘关闭（Escape 键）
+6. 尊重 `prefers-reduced-motion` 偏好
+
+---
+
+## 代码示例
+
+```css
+/* Popover 容器 */
+.popover {
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  max-width: 280px;
+  min-width: 120px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  z-index: 1100;
+}
+
+.popover.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 内容区 */
+.popover-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #000000; /* Black NO.7 */
+  border-radius: 8px;
+}
+
+/* 文本 */
+.popover-text {
+  font-family: 'PingFang SC', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #FFFFFF; /* Black NO.1 */
+  word-wrap: break-word;
+}
+
+/* 无障碍动效偏好 */
+@media (prefers-reduced-motion: reduce) {
+  .popover { transition: none; }
+}
+```
+
+```html
+<button aria-describedby="popover-1">提示</button>
+<div id="popover-1" class="popover" role="tooltip" aria-hidden="true">
+  <div class="popover-content">
+    <span class="popover-icon" aria-hidden="true">
+      <!-- SVG icon -->
+    </span>
+    <span class="popover-text">这是一条提示信息</span>
+  </div>
+</div>
+```
+
+---
+
+## 关联组件
 
 | 组件 | 关系 |
 |------|------|
-| Tooltip | Popover 的简化版，纯文本无图标 |
-| Dropdown | 下拉菜单，结构类似但内容不同 |
-| Modal | 全屏弹层，Popver 是微型弹层 |
-| Badge | 可作为 Popover 内容的计数标记 |
+| Tooltip | Popover 的简化版（无图标） |
+| ActionSheet | Popover 的"多选项"版本（内容更复杂） |
+| Modal | Popover 的"强制阻断"版本 |
+| NoticeBar | Popover 的"系统主动推送"版本 |
+
+---
+
+## Changelog
+
+| 版本 | 日期 | 变更 |
+|------|------|------|
+| v1.1.0 | 2026-04-22 | 新增 Purpose、Interaction Flow（结构化）、AI Notes、Code Mapping、Variants Overview；规范化 Design Tokens 和 Props Contract |
+| v1.0.0 | 2026-04-16 | 初始版本 |

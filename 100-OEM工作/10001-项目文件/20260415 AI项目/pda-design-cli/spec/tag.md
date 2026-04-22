@@ -1,21 +1,38 @@
 # 标签组件 (Tag)
 
-用于标记、分类或状态展示的轻量组件。
+> **v1.1.0** | 最后更新：2026-04-22
+> 新增：Purpose、Interaction Flow、AI Notes、Code Mapping、Variants Overview；规范化 Props Contract
 
 ---
 
-## 何时使用
+## Purpose
 
-**用这个组件，当：**
-- 展示状态、分类标签（运单状态、包裹类型、优先级等）
-- 在文本旁添加简短标注
+PDA Tag 是用于**标记、分类或状态展示**的轻量组件。它是纯展示元件（无操作语义），区别于 Button（操作触发）和 WaybillDisplay（多字段组合展示）。
 
-**不要用这个组件，当：**
-- 需要触发操作 → 用 Button
-- 需要展示完整信息卡片 → 用 Card
-- 需要展示运单号+姓名+性别 → 用 WaybillDisplay
+---
 
-**Tag vs WaybillDisplay 决策：**
+## Use When / Avoid When
+
+### ✅ Use When — 选这个组件的场景
+
+| 场景 | 推荐变体 |
+|------|---------|
+| 运单状态展示（"已签收"/"待取件"/"已取消"） | Medium / Success/Error/Warning |
+| 表单校验错误提示 | Small / Error |
+| 分类标签（"加急"/"生鲜"/"到付"） | Small / Primary/Default |
+| 筛选标签（可点击多选） | Small / Default |
+| 数量/角标提醒 | Small / Info |
+
+### ❌ Avoid When — 不要用这个组件的场景
+
+| 场景 | 替代方案 |
+|------|---------|
+| 需要触发操作（提交、确认等） | Button |
+| 展示运单号+收件人+性别等组合信息 | WaybillDisplay |
+| 需要展示完整信息卡片 | Card |
+| 数量很多（超过 10 个）需要横向滚动 | Chips / FilterBar |
+
+**Tag vs WaybillDisplay 决策树：**
 
 ```
 需要展示什么？
@@ -26,107 +43,190 @@
 
 ---
 
-## 一、组件变体
+## Interaction Flow
 
-### 1.1 按尺寸
+> Tag 有两种模式：**只读模式**和**可点击模式**。
 
-| 变体 | 高度 | 字号 | 字重 | 行高 | 圆角 | 内边距 |
-|------|------|------|------|------|------|--------|
-| **Medium** | 32px | 18px | 400 (Regular) | 25px | 8px | 4px 12px |
-| **Small** | 24px | 14px | 600 (Bold) | 20px | 4px | 2px 8px |
+```
+只读模式（无 onClick）：
+  纯展示，无状态变化
 
-> 注意：高度 32px = Small Button 高度 - 2px，为标签专用尺寸
-
-### 1.2 按颜色
-
-| 颜色 | 背景色 | 边框色 | 文字色 | 用途 |
-|------|--------|--------|--------|------|
-| **Success** | Green NO.1 `#F1FFEF` | Green NO.3 `#CCFFCC` | Green NO.7 `#4CBB4C` | 成功状态 |
-| **Error** | Red NO.1 `#FFCCCC` | Red NO.3 `#FF8080` | Red NO.7 `#CC0000` | 失败/错误 |
-| **Warning** | Yellow NO.3 `#FFF3B0` | Yellow NO.4 `#FFEE8A` | Yellow NO.7 `#F5B000` | 警告提示 |
-| **Default** | Grey NO.2 `#EEEEEE` | Grey NO.3 `#E0E0E0` | Grey NO.6 `#52567B` | 默认状态 |
-| **Primary** | Primary NO.1 `#F1E7FF` | Primary NO.3 `#B9A0ED` | Primary NO.6 `#6445D1` | 主色强调 |
-| **Info** | Blue NO.2 `#D9EFFF` | Blue NO.3 `#C6E6FF` | Blue NO.7 `#00A2FF` | 信息提示 |
-
----
-
-## 二、颜色规范
-
-### 2.1 Medium 尺寸
-
-| 状态 | 背景色 | 边框色 | 文字色 | Token 映射 |
-|------|--------|--------|--------|-----------|
-| **Success** | `#F1FFEF` | `#CCFFCC` | `#4CBB4C` | Green NO.1 / NO.3 / NO.7 |
-| **Error** | `#FFCCCC` | `#FF8080` | `#CC0000` | Red NO.1 / NO.3 / NO.7 |
-| **Warning** | `#FFF3B0` | `#FFEE8A` | `#F5B000` | Yellow NO.3 / NO.4 / NO.7 |
-| **Default** | `#EEEEEE` | `#E0E0E0` | `#52567B` | Grey NO.2 / NO.3 / NO.6 |
-| **Primary** | `#F1E7FF` | `#B9A0ED` | `#6445D1` | Primary NO.1 / NO.3 / NO.6 |
-| **Info** | `#D9EFFF` | `#C6E6FF` | `#00A2FF` | Blue NO.2 / NO.3 / NO.7 |
-
-### 2.2 Small 尺寸
-
-| 状态 | 背景色 | 边框色 | 文字色 | Token 映射 |
-|------|--------|--------|--------|-----------|
-| **Success** | `#F1FFEF` | `#CCFFCC` | `#4CBB4C` | Green NO.1 / NO.3 / NO.7 |
-| **Error** | `#FFCCCC` | `#FF8080` | `#CC0000` | Red NO.1 / NO.3 / NO.7 |
-| **Warning** | `#FFF3B0` | `#FFEE8A` | `#F5B000` | Yellow NO.3 / NO.4 / NO.7 |
-| **Default** | `#EEEEEE` | `#E0E0E0` | `#52567B` | Grey NO.2 / NO.3 / NO.6 |
-| **Primary** | `#F1E7FF` | `#B9A0ED` | `#6445D1` | Primary NO.1 / NO.3 / NO.6 |
-| **Info** | `#D9EFFF` | `#C6E6FF` | `#00A2FF` | Blue NO.2 / NO.3 / NO.7 |
-
-> 注意：Small 尺寸使用与 Medium 相同的颜色，仅高度和字号不同
-
----
-
-## 三、图标规范
-
-### 3.1 图标尺寸
-
-| 尺寸 | 图标宽度 | 图标高度 |
-|------|----------|----------|
-| **Medium** | 16px | 16px |
-| **Small** | 12px | 12px |
-
-### 3.2 图标与文字间距
-
-| 尺寸 | 间距 |
-|------|------|
-| **Medium** | 8px |
-| **Small** | 4px |
-
-### 3.3 推荐图标
-
-| 状态 | 左侧图标 | 右侧图标 |
-|------|----------|----------|
-| **Success** | `icon_success_outline.svg` | - |
-| **Error** | `icon_close_two_outline.svg` | - |
-| **Warning** | `icon_attention_outline.svg` | - |
-| **Default** | - | - |
-| **Primary** | - | - |
-| **Info** | `icon_information_outline.svg` | - |
-
----
-
-## 四、布局规范
-
-### 4.1 容器布局
-
-使用 Flexbox 流式布局，禁止使用绝对定位。
-
-```css
-/* 父容器 */
-.tag-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px; /* 使用设计系统默认间距 */
-  padding: 16px;
-}
+可点击模式（onClick 传入）：
+  Default ──[用户按下]──→ Pressed ──[松开]──→ Default
+      │                                  ↑
+      └──[disabled=true]──→ Disabled ────┘
 ```
 
-### 4.2 Tag 自身布局
+**规则：**
+- **可点击 Tag 的 Pressed 态**：背景加深 10%，视觉反馈按下行为（由各颜色变体自行定义深色版）
+- **Disabled**：文字和边框颜色淡化，不可触发 Pressed
+- **Tag 不存在 Hover 态**：PDA 设备无鼠标悬停，Hover 会浪费渲染性能
+
+**颜色变体 Pressed 态参考（可点击 Tag）：**
+
+| 变体 | Default 背景 | Pressed 背景 | 说明 |
+|------|-------------|-------------|------|
+| Success | `#F1FFEF` | `#DFF9DF` | 绿色加深约 15% |
+| Error | `#FFCCCC` | `#FFB3B3` | 红色加深约 15% |
+| Warning | `#FFF3B0` | `#FFE88A` | 黄色加深约 15% |
+| Default | `#EEEEEE` | `#E0E0E0` | 灰色加深 |
+| Primary | `#F1E7FF` | `#D9C7FA` | 紫色加深 |
+| Info | `#D9EFFF` | `#C0E5FF` | 蓝色加深 |
+
+---
+
+## Design Tokens
+
+### 核心参数
+
+| Token | Medium | Small |
+|-------|--------|-------|
+| 高度 | 32px | 24px |
+| 字号 | 18px | 14px |
+| 字重 | 400 (Regular) | 600 (Bold) |
+| 行高 | 25px | 20px |
+| 圆角 | 8px | 4px |
+| 内边距 | 4px 12px | 2px 8px |
+| 图标尺寸 | 16×16px | 12×12px |
+| 图标间距 | 8px | 4px |
+
+### Medium Token 矩阵
+
+| 变体 | 背景 | 边框 | 文字 | Token |
+|------|------|------|------|-------|
+| **Success** | `#F1FFEF` | `#CCFFCC` | `#4CBB4C` | Green NO.1 / NO.3 / NO.7 |
+| **Error** | `#FFCCCC` | `#FF8080` | `#CC0000` | Red NO.1 / NO.3 / NO.7 |
+| **Warning** | `#FFF3B0` | `#FFEE8A` | `#F5B000` | Yellow NO.3 / NO.4 / NO.7 |
+| **Default** | `#EEEEEE` | `#E0E0E0` | `#52567B` | Grey NO.2 / NO.3 / NO.6 |
+| **Primary** | `#F1E7FF` | `#B9A0ED` | `#6445D1` | Primary NO.1 / NO.3 / NO.6 |
+| **Info** | `#D9EFFF` | `#C6E6FF` | `#00A2FF` | Blue NO.2 / NO.3 / NO.7 |
+
+### Small Token 矩阵
+
+> Small 与 Medium 共用同一颜色体系，仅尺寸不同。
+
+| 变体 | 背景 | 边框 | 文字 | Token |
+|------|------|------|------|-------|
+| **Success** | `#F1FFEF` | `#CCFFCC` | `#4CBB4C` | Green NO.1 / NO.3 / NO.7 |
+| **Error** | `#FFCCCC` | `#FF8080` | `#CC0000` | Red NO.1 / NO.3 / NO.7 |
+| **Warning** | `#FFF3B0` | `#FFEE8A` | `#F5B000` | Yellow NO.3 / NO.4 / NO.7 |
+| **Default** | `#EEEEEE` | `#E0E0E0` | `#52567B` | Grey NO.2 / NO.3 / NO.6 |
+| **Primary** | `#F1E7FF` | `#B9A0ED` | `#6445D1` | Primary NO.1 / NO.3 / NO.6 |
+| **Info** | `#D9EFFF` | `#C6E6FF` | `#00A2FF` | Blue NO.2 / NO.3 / NO.7 |
+
+---
+
+## Props Contract
+
+| Prop | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `label` | `string` | 是 | 标签显示文本 |
+| `color` | `'success' \| 'error' \| 'warning' \| 'default' \| 'primary' \| 'info'` | 否（默认 default） | 颜色变体 |
+| `size` | `'medium' \| 'small'` | 否（默认 medium） | 尺寸变体 |
+| `disabled` | `boolean` | 否（默认 false） | 禁用状态 |
+| `iconLeft` | `ReactNode` | 否 | 左侧图标 |
+| `iconRight` | `ReactNode` | 否 | 右侧图标（目前未用） |
+| `onClick` | `() => void` | 否 | 点击回调（传入则变为可点击态） |
+| `className` | `string` | 否 | 自定义类名 |
+
+---
+
+## Code Mapping
+
+| 平台 | 路径 | 状态 |
+|------|------|------|
+| React | `src/components/PDATag/index.tsx` | 待补充 |
+| Vue | - | 待实现 |
+| iOS (SwiftUI) | - | 待实现 |
+| Android (XML) | - | 待实现 |
+| Storybook | - | 待补充 |
+
+---
+
+## AI Notes
+
+**为什么 Tag 有边框而 Button 没有？**
+Tag 是"标签"，边框增强其"卡片感"和"可分离性"，视觉上更像一个物理标签。Button 是"操作"，无边框使触控区域更干净。对比：Tag 需要在列表中与内容共存（有边框更易区分），Button 需要突出的触控区域（无边框更大）。
+
+**为什么 Medium 和 Small 的字重不同（Regular vs Bold）？**
+Medium 通常用于状态展示，需要柔和感（Regular）；Small 用于分类/筛选，需要在有限空间内更醒目（Bold）。这是经过验证的 UX 权衡。
+
+**为什么 Tag 没有 Hover 态？**
+PDA 设备无鼠标悬停能力，Hover 会造成无效渲染。Tag 只需处理 Pressed（触控）和 Disabled 两种状态。
+
+**为什么 Info 变体单独列出而不是合并到 Default？**
+Info（信息提示）与 Default（中性/辅助）的语义完全不同。Info 用于传递"有新消息/有新内容"的暗示，Default 仅表示"分类/中性标签"。语义分离有助于 AI 和开发者正确选择。
+
+---
+
+## Variants Overview
+
+| 变体 | 用途 | 语义 |
+|------|------|------|
+| Success | 成功/通过/完成 | ✅ 正向 |
+| Error | 失败/错误/取消 | ❌ 负向 |
+| Warning | 警告/注意 | ⚠️ 中性偏负 |
+| Default | 通用/中性分类 | ⭕ 辅助 |
+| Primary | 主色强调/加急 | 🔵 突出 |
+| Info | 信息提示/角标 | ℹ️ 通知 |
+
+---
+
+## 核心参数
+
+### Medium
+
+| 属性 | 值 | Token |
+|------|-----|-------|
+| 高度 | 32px | - |
+| 内边距 | 4px 12px | Gap: 4px H / 12px V |
+| 圆角 | 8px | Radius: 8px |
+| 字号 | 18px | Typography |
+| 字重 | 400 (Regular) | - |
+
+### Small
+
+| 属性 | 值 | Token |
+|------|-----|-------|
+| 高度 | 24px | - |
+| 内边距 | 2px 8px | Gap: 2px H / 8px V |
+| 圆角 | 4px | Radius: 4px |
+| 字号 | 14px | Typography |
+| 字重 | 600 (Bold) | - |
+
+---
+
+## 图标规范
+
+| 尺寸 | 图标尺寸 | 图标间距 |
+|------|---------|---------|
+| **Medium** | 16×16px | 8px |
+| **Small** | 12×12px | 4px |
+
+**推荐图标映射：**
+
+| 变体 | 左侧图标 | 说明 |
+|------|---------|------|
+| Success | `icon_success_outline.svg` | 成功指示 |
+| Error | `icon_close_two_outline.svg` | 错误指示 |
+| Warning | `icon_attention_outline.svg` | 警告指示 |
+| Info | `icon_information_outline.svg` | 信息提示 |
+
+---
+
+## 无障碍规范
+
+1. 所有文字与背景对比度 ≥ 4.5:1（WCAG AA）
+2. 可点击 Tag 触控区域 ≥ 44×44px（iOS/Android 最低标准）
+3. 可点击 Tag 支持键盘 Tab 聚焦
+4. 使用 `role="button"` + `aria-label` 说明含义
+
+---
+
+## 代码示例
 
 ```css
-/* Tag 基础样式 */
+/* Tag 基础 */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -137,7 +237,7 @@
   font-family: 'PingFang SC';
 }
 
-/* Medium 尺寸 */
+/* Medium */
 .tag--medium {
   height: 32px;
   padding: 4px 12px;
@@ -148,7 +248,7 @@
   gap: 8px;
 }
 
-/* Small 尺寸 */
+/* Small */
 .tag--small {
   height: 24px;
   padding: 2px 8px;
@@ -160,102 +260,20 @@
 }
 ```
 
----
-
-## 五、组件 API
-
-```typescript
-interface TagProps {
-  /** 标签显示的文本 */
-  label: string;
-  /** 标签的颜色主题 */
-  color?: 'success' | 'error' | 'warning' | 'default' | 'primary' | 'info';
-  /** 标签的尺寸 */
-  size?: 'medium' | 'small';
-  /** 左侧图标 (可选) */
-  iconLeft?: React.ReactNode;
-  /** 右侧图标 (可选) */
-  iconRight?: React.ReactNode;
-  /** 是否禁用 */
-  disabled?: boolean;
-  /** 点击事件 */
-  onClick?: () => void;
-}
-```
-
----
-
-## 六、无障碍规范
-
-1. 使用语义化颜色组合，确保文字与背景对比度 ≥ 4.5:1
-2. 点击区域最小 44px × 44px（移动端）
-3. 支持键盘聚焦（Tab 键）
-4. 使用 `role="button"` 和 `aria-label` 说明含义
-
----
-
-## 七、使用场景
-
-| 场景 | 推荐变体 | 说明 |
-|------|---------|------|
-| 订单状态 | Medium / Success/Error | 大号标签展示状态 |
-| 表单校验 | Small / Error | 错误提示信息 |
-| 筛选标签 | Small / Default | 多选标签 |
-| 分类标签 | Small / Primary | 业务分类 |
-| 角标 | Small / Info | 数量/消息提醒 |
-
----
-
-## 八、代码示例
-
-### 8.1 基础用法
-
 ```jsx
-import { Tag } from 'pda-design';
+// 基础用法
+<Tag color="success" size="medium">完成成功</Tag>
+<Tag color="error" size="small">失败出错</Tag>
+<Tag color="primary" size="small">正常状态</Tag>
 
-<Tag color="success" size="medium">
-  完成成功
-</Tag>
+// 带图标
+<Tag color="success" size="medium" iconLeft={<SuccessIcon />}>审核通过</Tag>
+<Tag color="error" size="small" iconLeft={<CloseIcon />}>已取消</Tag>
 
-<Tag color="error" size="small">
-  失败出错
-</Tag>
-
-<Tag color="primary" size="small">
-  正常状态
-</Tag>
-
-<Tag color="default" size="medium">
-  默认通用
-</Tag>
-```
-
-### 8.2 带图标
-
-```jsx
-<Tag 
-  color="success" 
-  size="medium"
-  iconLeft={<SuccessIcon />}
->
-  审核通过
-</Tag>
-
-<Tag 
-  color="error" 
-  size="small" 
-  iconLeft={<CloseIcon />}
->
-  已取消
-</Tag>
-```
-
-### 8.3 容器布局
-
-```jsx
-<div className="tag-container">
-  <Tag color="success" size="medium" iconLeft={<CheckIcon />}>完成</Tag>
-  <Tag color="error" size="medium" iconLeft={<CloseIcon />}>失败</Tag>
+// 容器布局
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+  <Tag color="success" size="medium">完成</Tag>
+  <Tag color="error" size="medium">失败</Tag>
   <Tag color="warning" size="medium">待审核</Tag>
   <Tag color="primary" size="small">标签一</Tag>
   <Tag color="default" size="small">标签二</Tag>
@@ -265,10 +283,9 @@ import { Tag } from 'pda-design';
 
 ---
 
-## 九、关联组件
+## Changelog
 
-| 组件 | 关联说明 |
-|------|---------|
-| Button | 继承按钮的配色体系 |
-| Badge | Tag 的计数变体 |
-| Input | 表单校验错误提示联动 |
+| 版本 | 日期 | 变更 |
+|------|------|------|
+| v1.1.0 | 2026-04-22 | 新增 Purpose、Interaction Flow（声明 Pressed/Disabled）、AI Notes、Code Mapping、Variants Overview；规范化 Props Contract |
+| v1.0.0 | 2026-04-16 | 初始版本 |
